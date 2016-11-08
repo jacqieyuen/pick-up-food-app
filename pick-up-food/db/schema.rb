@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20161107072016) do
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
+    t.string   "img_path"
     t.integer  "price"
     t.integer  "options"
     t.integer  "category_id"

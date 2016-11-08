@@ -6,4 +6,10 @@ app.controller('MenuCtrl', ['$scope', '$http', '$location', function($scope, $ht
     console.log(response);
     $scope.products = response;
   });
+
+  $http.get(url + '/api/categories').success(function(response){
+    console.log(response);
+    $scope.categories = response;
+  });
+
 }])
