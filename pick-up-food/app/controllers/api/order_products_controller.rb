@@ -1,2 +1,2 @@
-class Api::OrderProductsController < ApplicationController
+class API::OrderProductsController < ApplicationController
 end

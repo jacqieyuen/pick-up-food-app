@@ -1,2 +1,2 @@
-module Api::CategoriesHelper
+module API::CategoriesHelper
 end

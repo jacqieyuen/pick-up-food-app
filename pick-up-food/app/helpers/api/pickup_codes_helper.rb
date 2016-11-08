@@ -1,2 +1,2 @@
-module Api::PickupCodesHelper
+module API::PickupCodesHelper
 end

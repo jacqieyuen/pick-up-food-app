@@ -1,0 +1,9 @@
+app.controller('MenuCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
+  $scope.message = "Menu Page";
+  var url = "<%= ENV['URL'] %>" || "http://localhost:3000";
+
+  $http.get(url + '/api/products').success(function(response){
+    console.log(response);
+    $scope.products = response;
+  });
+}])

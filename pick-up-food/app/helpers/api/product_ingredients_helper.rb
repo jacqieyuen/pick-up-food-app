@@ -1,2 +1,2 @@
-module Api::ProductIngredientsHelper
+module API::ProductIngredientsHelper
 end

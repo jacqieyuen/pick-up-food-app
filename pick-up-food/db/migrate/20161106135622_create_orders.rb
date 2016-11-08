@@ -4,7 +4,9 @@ class CreateOrders < ActiveRecord::Migration[5.0]
       t.boolean :preparing
       t.boolean :ready
       t.boolean :picked_up
-      t.date :pick_up_time
+      t.integer :pickup_code
+      t.datetime :pick_up_time
+      t.belongs_to :user
 
       t.timestamps
     end

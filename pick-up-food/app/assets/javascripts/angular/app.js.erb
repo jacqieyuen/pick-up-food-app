@@ -1,0 +1,47 @@
+'use strict';
+
+// var app = angular.module('appName', ['oneDependency']);
+var app = angular.module('pick_up_food', ['ui.router', 'ui.bootstrap', 'ng-token-auth']);
+
+app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($stateProvider, $urlRouterProvider, $authProvider) {
+  $urlRouterProvider.otherwise('/');
+
+  $authProvider.configure({
+    apiUrl: 'http://localhost:3000'
+  });
+
+  // Configure Angular Routes
+  $stateProvider
+    .state({
+      name:'home',
+      url:'/',
+      templateUrl: "<%= asset_path('static_pages/index.html') %>",
+      controller: 'StaticPagesCtrl'
+    })
+    .state({
+      name:'signup',
+      url:'/signup',
+      templateUrl: "<%= asset_path('auth/signup.html') %>",
+      controller: 'SignUpCtrl'
+    })
+    .state({
+      name:'login',
+      url:'/login',
+      templateUrl: "<%= asset_path('auth/login.html') %>",
+      controller: 'LogInCtrl'
+    })
+    .state({
+      name:'menu',
+      url:'/menu',
+      templateUrl: "<%= asset_path('customer/menu.html') %>",
+      controller: 'MenuCtrl'
+    })
+    .state({
+      name:'checkout',
+      url:'/checkout',
+      templateUrl: "<%= asset_path('customer/checkout.html') %>",
+      controller: 'CheckoutCtrl'
+    });
+
+
+}]);

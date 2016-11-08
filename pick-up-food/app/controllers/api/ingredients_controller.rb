@@ -1,2 +1,2 @@
-class Api::IngredientsController < ApplicationController
+class API::IngredientsController < ApplicationController
 end
