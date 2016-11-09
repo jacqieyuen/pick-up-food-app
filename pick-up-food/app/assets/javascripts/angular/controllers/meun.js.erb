@@ -1,15 +1,46 @@
-app.controller('MenuCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
+app.controller('MenuCtrl', ['$scope', '$http', '$location', '$anchorScroll', function($scope, $http, $location, $anchorScroll){
   $scope.message = "Menu Page";
+
+  $scope.checkoutList = [];
+
+  $scope.checkoutTotal = function () {
+    var total = 0;
+    for (var i = 0; i < $scope.checkoutList.length; i++){
+      total += $scope.checkoutList[i].price
+    }
+    return total;
+  }
+
+  $scope.addToCheckout = function(add_id) {
+    $scope.result = $scope.products.filter(function(obj){
+      return obj.id == add_id
+    })[0];
+    $scope.checkoutList.push($scope.result);
+
+    // console.log($scope.result);
+    console.log("adding this item to basket")
+    console.log($scope.checkoutList);
+  }
+
+  $scope.deleteItem = function($index){
+    $scope.deletedItem = $scope.checkoutList.splice($index, 1);
+    console.log("item that was deleted")
+    console.log($scope.deletedItem)
+    console.log("items left in checkoutList")
+    console.log($scope.checkoutList)
+  }
+
   var url = "<%= ENV['URL'] %>" || "http://localhost:3000";
 
   $http.get(url + '/api/products').success(function(response){
-    console.log(response);
     $scope.products = response;
+    console.log($scope.products);
   });
 
   $http.get(url + '/api/categories').success(function(response){
     console.log(response);
     $scope.categories = response;
   });
+
 
 }])

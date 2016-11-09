@@ -1,27 +1,40 @@
-<div class="container">
-  <div class="row">
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Basket</button>
-    <h1> {{ message }} </h1>
-  </div>
-  <div class="row" ng-repeat="category in categories">
-    <div>
-      <h2 class="categorySeperator">{{ category.name }}</h2>
 
-      <div class="col-sm-6 col-md-4" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
-        <div class="thumbnail">
-          <img src='http://www.simplylife.com.hk/img/kitchen/to_hypnotise/simplylife_open_kitchen_to_hypnotise_r19_c1.jpg'>
-          <div class="caption">
-            <h3>{{ product.name }}</h3>
-            <p>{{ product.description }}</p>
-            <p><a class="btn btn-primary" role="button">${{ product.price }}</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+  <nav id="navbarmenu" class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header" >
+        <ul class="nav navbar-nav">
+          <li ng-repeat="category in categories"><a href='' >{{ category.name }}</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" >
+    <div class="row">
+      <button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#myModal">Basket</button>
+      <h1> {{ message }} </h1>
+    </div>
+    <div class="row" ng-repeat="category in categories">
+      <div>
+        <h2 class="categorySeperator" id="{{ category.name }}">{{ category.name }}</h2>
+
+        <div class="col-sm-6 col-md-4" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
+          <div class="thumbnail">
+            <img ng-src="{{product.img_path}}">
+            <div class="caption">
+              <h3>{{ product.name }}</h3>
+              <p>{{ product.description }}</p>
+              <div class="clearfix">
+                <div class="price pull-left">${{ product.price }}</div>
+                <a class="btn btn-default pull-right" role="button" ng-click="addToCheckout(product.id)">Add</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
-
   </div>
-</div>
-
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -33,12 +46,36 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Your Basket</h4>
       </div>
-      <div class="modal-body">
-        <p>Some text in the modal.</p>
+      <div class="modal-body" ng-repeat="product in checkoutList track by $index">
+        <div class="row">
+          <div class="col-md-5">
+            <img class="modal_img" ng-src="{{product.img_path}}">
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6">
+
+              </div>
+              <div class="col-md-6">
+                <h4>${{ product.price }}</h4>
+              </div>
+            </div>
+            <div class="row">
+              <h4>{{ product.name }}</h4>
+            </div>
+          </div>
+          <div class="col-md-1">
+            <button ng-click="deleteItem($index)"><strong>X</strong></button>
+          </div>
+        </div>
+
       </div>
+
       <div class="modal-footer">
-        <a href="/#/checkout"><button class="btn btn-primary">Checkout</button></a>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <div class="clearfix">
+          <div class="pull-left">Total: {{ checkoutTotal() }}</div>
+          <a href="/#/checkout"><button class="btn btn-primary pull-right">Checkout</button></a>
+        </div>
       </div>
     </div>
 
