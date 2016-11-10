@@ -4,7 +4,7 @@ app.controller('MenuCtrl', ['$scope', '$http', '$localStorage', function($scope,
 
 
   $scope.checkoutList = [];
-
+  $scope.checkoutList = $localStorage.checkoutList
   $scope.saveCheckoutList = function () {
     $localStorage.checkoutList = $scope.checkoutList;
   }
