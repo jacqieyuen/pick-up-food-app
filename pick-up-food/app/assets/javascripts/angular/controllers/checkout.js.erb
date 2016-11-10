@@ -1,0 +1,6 @@
+app.controller('CheckoutCtrl', ['$scope', '$localStorage',function($scope, $localStorage){
+  $scope.message = "Checkout Page"
+
+  $scope.checkoutList = $localStorage.checkoutList
+  console.log($scope.checkoutList)
+}])

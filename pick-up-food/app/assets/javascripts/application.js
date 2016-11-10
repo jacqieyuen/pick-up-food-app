@@ -16,6 +16,7 @@
 //= require angular-cookie/angular-cookie
 //= require angular-ui-router/release/angular-ui-router
 //= require ng-token-auth/dist/ng-token-auth
+//= require ngstorage/ngStorage
 //= require jquery/dist/jquery
 //= require bootstrap/dist/js/bootstrap
 //= require_tree .

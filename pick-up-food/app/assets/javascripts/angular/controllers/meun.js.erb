@@ -1,7 +1,13 @@
-app.controller('MenuCtrl', ['$scope', '$http', '$location', '$anchorScroll', function($scope, $http, $location, $anchorScroll){
+app.controller('MenuCtrl', ['$scope', '$http', '$localStorage', function($scope, $http, $localStorage){
   $scope.message = "Menu Page";
+  $scope.message2 = "Checkout Page";
+
 
   $scope.checkoutList = [];
+
+  $scope.saveCheckoutList = function () {
+    $localStorage.checkoutList = $scope.checkoutList;
+  }
 
   $scope.checkoutTotal = function () {
     var total = 0;
@@ -19,7 +25,7 @@ app.controller('MenuCtrl', ['$scope', '$http', '$location', '$anchorScroll', fun
 
     // console.log($scope.result);
     console.log("adding this item to basket")
-    console.log($scope.checkoutList);
+    console.log($scope.result);
   }
 
   $scope.deleteItem = function($index){
