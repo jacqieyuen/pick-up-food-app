@@ -4,5 +4,8 @@ class API::OrdersController < ApplicationController
     render json: Order.all
   end
 
+  def get_client_token
+     render json: {key: Braintree::ClientToken.generate}
+  end
 
 end

@@ -1,4 +1,4 @@
-app.controller('CheckoutCtrl', ['$scope', '$localStorage',function($scope, $localStorage){
+app.controller('CheckoutCtrl', ['$scope', '$http', '$localStorage',function($scope, $http, $localStorage){
   $scope.message = "Checkout Page"
 
   $scope.checkoutList = $localStorage.checkoutList;
@@ -20,4 +20,25 @@ app.controller('CheckoutCtrl', ['$scope', '$localStorage',function($scope, $loca
   $scope.showSelectedTime = function () {
     console.log($scope.pickedTime);
   };
+
+  $scope.checkoutTotal = function () {
+    var total = 0;
+    for (var i = 0; i < $scope.checkoutList.length; i++){
+      total += $scope.checkoutList[i].price
+    }
+    return total;
+  }
+
+  $http.get('http://localhost:3000/api/orders/get_client_token').success(function(response){
+    $scope.clientToken = response.key
+    // console.log($scope.clientToken);
+    braintree.setup($scope.clientToken, 'dropin', {
+      container: 'dropin-container',
+      paymentMethodNonceReceived: function (event, nonce) {
+      console.log(nonce)
+    }
+    });
+  });
+
+
 }])

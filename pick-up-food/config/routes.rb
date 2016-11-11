@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
   root 'static_pages#index'
+  get '/api/orders/get_client_token' => "get_client_token"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
    namespace :api do
-    resources :orders, only: [:index], defaults: { :format => 'json' }
+    resources :orders, only: [:index, :new], defaults: { :format => 'json' }
     resources :products, only: [:index], defaults: { :format => 'json' }
     resources :ingredients, only: [:index], defaults: { :format => 'json' }
     resources :pickup_codes, only: [:index], defaults: { :format => 'json' }

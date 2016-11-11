@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require angular/angular
+//= require braintree
 //= require angular-resource/angular-resource
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require angular-cookie/angular-cookie

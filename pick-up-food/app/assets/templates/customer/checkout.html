@@ -5,12 +5,6 @@
     <h1> {{ message }} </h1>
   </div>
 
-  <div class="row pickTime">
-    <label>Pick A Time:
-      <select ng-model="pickedTime" ng-options="time for time in array" ng-change="showSelectedTime()"></select>
-    </label>
-  </div>
-
   <div class="row" ng-repeat="product in checkoutList track by $index">
     <div class="col-md-5">
       <img class="modal_img" ng-src="{{product.img_path}}">
@@ -31,6 +25,23 @@
     <div class="col-md-1">
       <button ng-click="deleteItem($index)"><strong>X</strong></button>
     </div>
+  </div>
+  <div class="row">
+    <div class="clearfix">
+      <div class="pull-left">Total: {{ checkoutTotal() }}</div>
+      <!-- <a href="/#/checkout"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a> -->
+    </div>
+  </div>
+  <div class="row pickTime">
+    <label>Pick A Time:
+      <select ng-model="pickedTime" ng-options="time for time in array" ng-change="showSelectedTime()"></select>
+    </label>
+  </div>
+  <div class="row">
+    <form id="checkout" method="post" action="/checkout">
+      <div id="dropin-container"></div>
+      <input type="submit" value="Pay {{ checkoutTotal() }}" ng-model="{{ checkoutTotal() }}">
+    </form>
   </div>
 
 </div>
