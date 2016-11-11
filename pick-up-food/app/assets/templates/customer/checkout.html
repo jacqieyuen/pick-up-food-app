@@ -1,12 +1,38 @@
 <div class="container">
+
   <div class="row">
+    <a href="/#/menu"><button type="button" class="btn btn-info btn-lg pull-right" >Back</button></a>
     <h1> {{ message }} </h1>
   </div>
-  <div class="row">
-    <div ng-repeat="product in checkoutList track by $index">
-      <div>
-        {{ product.name }}
+
+  <div class="row pickTime">
+    <label>Pick A Time:
+      <select ng-model="pickedTime" ng-options="time for time in array" ng-change="showSelectedTime()"></select>
+    </label>
+  </div>
+
+  <div class="row" ng-repeat="product in checkoutList track by $index">
+    <div class="col-md-5">
+      <img class="modal_img" ng-src="{{product.img_path}}">
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6">
+
+        </div>
+        <div class="col-md-6">
+          <h4>${{ product.price }}</h4>
+        </div>
+      </div>
+      <div class="row">
+        <h4>{{ product.name }}</h4>
       </div>
     </div>
+    <div class="col-md-1">
+      <button ng-click="deleteItem($index)"><strong>X</strong></button>
+    </div>
   </div>
+
 </div>
+
+

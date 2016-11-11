@@ -1,6 +1,23 @@
 app.controller('CheckoutCtrl', ['$scope', '$localStorage',function($scope, $localStorage){
   $scope.message = "Checkout Page"
 
-  $scope.checkoutList = $localStorage.checkoutList
-  console.log($scope.checkoutList)
+  $scope.checkoutList = $localStorage.checkoutList;
+  console.log($scope.checkoutList);
+
+  $scope.deleteItem = function($index){
+    $scope.deletedItem = $scope.checkoutList.splice($index, 1);
+    console.log("item that was deleted")
+    console.log($scope.deletedItem)
+    console.log("items left in checkoutList")
+    console.log($scope.checkoutList)
+  };
+
+  $scope.createTimes = function () {
+    $scope.array = [1,2,3,4]
+    // [{name:1},{name:2},{name:3}]
+  };
+  $scope.createTimes();
+  $scope.showSelectedTime = function () {
+    console.log($scope.pickedTime);
+  };
 }])

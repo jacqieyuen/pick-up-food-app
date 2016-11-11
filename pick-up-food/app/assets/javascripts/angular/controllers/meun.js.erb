@@ -3,10 +3,34 @@ app.controller('MenuCtrl', ['$scope', '$http', '$localStorage', function($scope,
   $scope.message2 = "Checkout Page";
 
 
-  $scope.checkoutList = [];
-  $scope.checkoutList = $localStorage.checkoutList
+
+  $scope.initCheckoutList = function () {
+    $scope.checkoutList = [];
+    $scope.checkoutList = $localStorage.checkoutList
+    if (!$scope.checkoutList){
+      $scope.checkoutList=[]
+    }else {
+      $scope.expirationTime = localStorage.expirationTime;
+      console.log($scope.expirationTime);
+      $scope.currentTime = new Date();
+      $scope.currentHour = $scope.currentTime.getTime();
+      console.log($scope.expirationTime - $scope.currentHour)
+      if ($scope.expirationTime < $scope.currentHour){
+        $localStorage.$reset();
+        $scope.checkoutList = [];
+      };
+    }
+  };
+
+  $scope.initCheckoutList();
+
   $scope.saveCheckoutList = function () {
     $localStorage.checkoutList = $scope.checkoutList;
+
+    $scope.currentTime = new Date();
+    $scope.currentHour = $scope.currentTime.getTime();
+    $scope.expirationTime = $scope.currentHour + (3*60*60*1000);
+    localStorage.expirationTime = $scope.expirationTime;
   }
 
   $scope.checkoutTotal = function () {
