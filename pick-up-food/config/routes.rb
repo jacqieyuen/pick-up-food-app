@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/api/orders/get_client_token' => "get_client_token"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
    namespace :api do
-    resources :orders, only: [:index, :new], defaults: { :format => 'json' }
+    resources :orders, only: [:index, :create], defaults: { :format => 'json' }
     resources :products, only: [:index], defaults: { :format => 'json' }
     resources :ingredients, only: [:index], defaults: { :format => 'json' }
     resources :pickup_codes, only: [:index], defaults: { :format => 'json' }

@@ -22,20 +22,29 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$localStorage',function($sco
   };
 
   $scope.checkoutTotal = function () {
-    var total = 0;
+    $scope.total = 0;
     for (var i = 0; i < $scope.checkoutList.length; i++){
-      total += $scope.checkoutList[i].price
+      $scope.total += $scope.checkoutList[i].price
     }
-    return total;
+    return $scope.total;
   }
 
   $http.get('http://localhost:3000/api/orders/get_client_token').success(function(response){
     $scope.clientToken = response.key
     // console.log($scope.clientToken);
+    // console.log(($scope.total).toString());
     braintree.setup($scope.clientToken, 'dropin', {
       container: 'dropin-container',
       paymentMethodNonceReceived: function (event, nonce) {
+      $scope.data = {
+        amount: ($scope.total).toString(),
+        payment_method_nonce: nonce
+      };
       console.log(nonce)
+      console.log(($scope.total).toString())
+      $http.post('http://localhost:3000/api/orders', $scope.data).success(function(resp){
+        console.log(resp)
+      });
     }
     });
   });
