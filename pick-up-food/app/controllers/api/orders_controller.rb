@@ -1,5 +1,7 @@
 class API::OrdersController < ApplicationController
 
+  before_action :authenticate_user!
+
   def index
     render json: Order.all
   end
@@ -15,7 +17,7 @@ class API::OrdersController < ApplicationController
     if @result.success?
       render json: {message:"success"}
     else
-      render json: {message:"fail"}
+      render json: {message:"fail", errors: @results.errors}
     end
     # flash[:notice] = "Sale successful. Head to Sizzler" if @result.success?
     # flash[:alert] = "Something is amiss. #{result.transaction.processor_response_text}" unless @result.success?

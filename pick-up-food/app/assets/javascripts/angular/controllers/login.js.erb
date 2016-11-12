@@ -4,7 +4,7 @@ app.controller('LogInCtrl', ['$scope', '$auth', '$location', function($scope, $a
     $auth.submitLogin($scope.loginForm).
      then(function(resp) {
        // handle success response
-       console.log(resp+ " logged in");
+       console.log(resp);
 
        // redirect back to root when login succesfull
        $location.path('/');

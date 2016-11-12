@@ -40,7 +40,23 @@ app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($s
       name:'checkout',
       url:'/checkout',
       templateUrl: "<%= asset_path('customer/checkout.html') %>",
-      controller: 'CheckoutCtrl'
+      controller: 'CheckoutCtrl',
+      resolve: {
+          auth: function($auth) {
+            return $auth.validateUser();
+          }
+        }
+    })
+    .state({
+      name:'order_summary',
+      url:'/order_summary',
+      templateUrl: "<%= asset_path('customer/ordersummary.html') %>",
+      controller: 'OrderSummaryCtrl',
+      resolve: {
+          auth: function($auth) {
+            return $auth.validateUser();
+          }
+        }
     });
 
 
