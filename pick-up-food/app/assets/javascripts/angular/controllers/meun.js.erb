@@ -11,10 +11,11 @@ app.controller('MenuCtrl', ['$scope', '$http', '$localStorage', function($scope,
       $scope.checkoutList=[]
     }else {
       $scope.expirationTime = localStorage.expirationTime;
-      console.log($scope.expirationTime);
+      // console.log($scope.expirationTime);
       $scope.currentTime = new Date();
       $scope.currentHour = $scope.currentTime.getTime();
       console.log($scope.expirationTime - $scope.currentHour)
+      console.log($scope.checkoutList);
       if ($scope.expirationTime < $scope.currentHour){
         $localStorage.$reset();
         $scope.checkoutList = [];

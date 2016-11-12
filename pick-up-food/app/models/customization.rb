@@ -1,2 +1,0 @@
-class Customization < ApplicationRecord
-end
