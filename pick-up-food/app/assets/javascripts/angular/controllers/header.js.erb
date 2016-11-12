@@ -1,0 +1,17 @@
+app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', function($scope, $auth, $rootScope){
+
+  $rootScope.user = ($auth.validateUser().$$state.value.signedIn == true);
+  // UserService.user.loggedin
+  // $scope.user = "hello"
+  // console.log($scope.user)
+
+  $scope.logout = function () {
+    $auth.signOut().then(function(resp) {
+      console.log(resp);
+      $rootScope.user = ($auth.validateUser().$$state.value.signedIn == true);
+    }).catch(function(resp) {
+      console.log(resp);
+    });
+  };
+
+}])

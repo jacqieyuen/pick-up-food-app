@@ -1,11 +1,11 @@
-app.controller('LogInCtrl', ['$scope', '$auth', '$location', function($scope, $auth, $location){
+app.controller('LogInCtrl', ['$scope', '$auth', '$rootScope', '$location', function($scope, $auth, $rootScope, $location){
   $scope.login = function () {
     // console.log($scope.loginForm)
     $auth.submitLogin($scope.loginForm).
      then(function(resp) {
        // handle success response
-       console.log(resp);
-
+      console.log(resp);
+      $rootScope.user = ($auth.validateUser().$$state.value.signedIn == true);
        // redirect back to root when login succesfull
        $location.path('/');
      })

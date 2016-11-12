@@ -13,31 +13,37 @@ app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($s
   // Configure Angular Routes
   $stateProvider
     .state({
-      name:'home',
+    abstract: true,
+    name: "header",
+    templateUrl: "<%= asset_path('abstracts/header.html') %>",
+    controller: 'HeaderCtrl'
+    })
+    .state({
+      name:'header.home',
       url:'/',
       templateUrl: "<%= asset_path('static_pages/index.html') %>",
       controller: 'StaticPagesCtrl'
     })
     .state({
-      name:'signup',
+      name:'header.signup',
       url:'/signup',
       templateUrl: "<%= asset_path('auth/signup.html') %>",
       controller: 'SignUpCtrl'
     })
     .state({
-      name:'login',
+      name:'header.login',
       url:'/login',
       templateUrl: "<%= asset_path('auth/login.html') %>",
       controller: 'LogInCtrl'
     })
     .state({
-      name:'menu',
+      name:'header.menu',
       url:'/menu',
       templateUrl: "<%= asset_path('customer/menu.html') %>",
       controller: 'MenuCtrl'
     })
     .state({
-      name:'checkout',
+      name:'header.checkout',
       url:'/checkout',
       templateUrl: "<%= asset_path('customer/checkout.html') %>",
       controller: 'CheckoutCtrl',
@@ -48,7 +54,7 @@ app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', function($s
         }
     })
     .state({
-      name:'order_summary',
+      name:'header.order_summary',
       url:'/order_summary',
       templateUrl: "<%= asset_path('customer/ordersummary.html') %>",
       controller: 'OrderSummaryCtrl',

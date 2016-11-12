@@ -1,7 +1,11 @@
-app.controller('MenuCtrl', ['$scope', '$http', '$localStorage', function($scope, $http, $localStorage){
+app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', function($scope, $http, $auth, UserService, $localStorage){
   $scope.message = "Menu Page";
 
-
+  $scope.user = UserService.user
+  console.log($scope.user);
+  console.log($scope.user.loggedin);
+  console.log($auth.validateUser().$$state.value);
+  console.log($auth.validateUser().$$state.value.signedIn == true);
 
   $scope.initCheckoutList = function () {
     $scope.checkoutList = [];
@@ -23,6 +27,19 @@ app.controller('MenuCtrl', ['$scope', '$http', '$localStorage', function($scope,
   };
 
   $scope.initCheckoutList();
+
+  var url = "<%= ENV['URL'] %>" || "http://localhost:3000";
+
+  $http.get(url + '/api/categories').success(function(response){
+    console.log(response);
+    $scope.categories = response;
+  });
+
+  $http.get(url + '/api/products').success(function(response){
+    $scope.products = response;
+    console.log($scope.products);
+  });
+
 
   $scope.saveCheckoutList = function () {
     $localStorage.checkoutList = $scope.checkoutList;
@@ -59,18 +76,5 @@ app.controller('MenuCtrl', ['$scope', '$http', '$localStorage', function($scope,
     console.log("items left in checkoutList")
     console.log($scope.checkoutList)
   }
-
-  var url = "<%= ENV['URL'] %>" || "http://localhost:3000";
-
-  $http.get(url + '/api/products').success(function(response){
-    $scope.products = response;
-    console.log($scope.products);
-  });
-
-  $http.get(url + '/api/categories').success(function(response){
-    console.log(response);
-    $scope.categories = response;
-  });
-
 
 }]);
