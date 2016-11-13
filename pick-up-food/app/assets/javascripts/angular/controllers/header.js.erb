@@ -1,9 +1,58 @@
-app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', function($scope, $auth, $rootScope){
+app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', 'UserService', '$localStorage', function($scope, $auth, $rootScope, UserService, $localStorage){
 
-  $rootScope.user = ($auth.validateUser().$$state.value.signedIn == true);
+  $rootScope.user = UserService.user.loggedin
+  // ($auth.validateUser().$$state.value.signedIn == true);
   // UserService.user.loggedin
   // $scope.user = "hello"
   // console.log($scope.user)
+
+  $scope.initCheckoutList = function () {
+    $scope.checkoutList = [];
+    $scope.checkoutList = $localStorage.checkoutList
+    if (!$scope.checkoutList){
+      $scope.checkoutList=[]
+    }else {
+      $scope.expirationTime = localStorage.expirationTime;
+      // console.log($scope.expirationTime);
+      $scope.currentTime = new Date();
+      $scope.currentHour = $scope.currentTime.getTime();
+      console.log($scope.expirationTime - $scope.currentHour)
+      console.log($scope.checkoutList);
+      if ($scope.expirationTime < $scope.currentHour){
+        $localStorage.$reset();
+        $scope.checkoutList = [];
+      };
+    }
+  };
+
+  $scope.saveCheckoutList = function () {
+    $localStorage.checkoutList = $scope.checkoutList;
+
+    $scope.currentTime = new Date();
+    $scope.currentHour = $scope.currentTime.getTime();
+    $scope.expirationTime = $scope.currentHour + (3*60*60*1000);
+    localStorage.expirationTime = $scope.expirationTime;
+  }
+
+  $scope.checkoutTotal = function () {
+    var total = 0;
+    for (var i = 0; i < $scope.checkoutList.length; i++){
+      total += $scope.checkoutList[i].price
+    }
+    return total;
+  }
+
+
+  $scope.deleteItem = function($index){
+    $scope.deletedItem = $scope.checkoutList.splice($index, 1);
+    console.log("item that was deleted")
+    console.log($scope.deletedItem)
+    console.log("items left in checkoutList")
+    console.log($scope.checkoutList)
+  }
+
+  $scope.initCheckoutList();
+
 
   $scope.logout = function () {
     $auth.signOut().then(function(resp) {
