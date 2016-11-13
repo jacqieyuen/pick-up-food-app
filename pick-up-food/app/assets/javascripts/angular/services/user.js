@@ -4,6 +4,7 @@ app.service('UserService', ['$auth', '$rootScope', function($auth, $rootScope){
   this.user = {
     loggedin: ($auth.validateUser().$$state.value.signedIn == true)
   };
+  this.userData = ($auth.validateUser().$$state.value)
 
   this.validateUser = function () {
     $auth.validateUser().then(function(){

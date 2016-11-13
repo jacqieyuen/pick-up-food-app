@@ -1,6 +1,7 @@
-app.controller('CheckoutCtrl', ['$scope', '$http', '$location','$localStorage',function($scope, $http, $location, $localStorage){
+app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', function($scope, $http, $location, UserService, $localStorage){
   $scope.message = "Checkout Page"
-
+  $scope.userData = UserService.userData
+  console.log($scope.userData.id)
   $scope.checkoutList = $localStorage.checkoutList;
   console.log($scope.checkoutList);
 
@@ -22,7 +23,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location','$localStorage',f
     return $scope.total;
   }
 
-  $http.get('http://localhost:3000/api/orders/get_client_token').success(function(response){
+  $http.get('http://localhost:3000/api/transactions/get_client_token').success(function(response){
     $scope.clientToken = response.key
     // console.log($scope.clientToken);
     // console.log(($scope.total).toString());
@@ -35,9 +36,9 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location','$localStorage',f
       };
       console.log(nonce)
       console.log(($scope.total).toString())
-      $http.post('http://localhost:3000/api/orders', $scope.data).then(function successCallback (resp){
+      $http.post('http://localhost:3000/api/transactions', $scope.data).then(function successCallback (resp){
         console.log(resp);
-        window.location = "/#/order_summary";
+        $scope.createOrder();
       }, function errorCallback (resp){
         console.log(resp)
       });
@@ -45,7 +46,24 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location','$localStorage',f
     });
   });
 
+  $scope.createOrder = function() {
+    $scope.createOrderData = {
+      preparing: false,
+      ready: false,
+      picked_up: false,
+      user_id : $scope.userData.id,
+      // pick_up_time: ,
+      // pickup_code: 1234
+    };
+    $http.post('http://localhost:3000/api/orders', $scope.createOrderData).then(function successCallback (resp){
+      console.log(resp);
+      window.location = "/#/order_summary";
+      $localStorage.$reset();
 
+    }, function errorCallback (resp){
+      console.log(resp)
+    })
+  };
 
   $scope.createTimes = function () {
     $scope.timesArray = []
