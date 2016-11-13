@@ -1,4 +1,4 @@
-app.controller('CheckoutCtrl', ['$scope', '$http', '$localStorage',function($scope, $http, $localStorage){
+app.controller('CheckoutCtrl', ['$scope', '$http', '$location','$localStorage',function($scope, $http, $location, $localStorage){
   $scope.message = "Checkout Page"
 
   $scope.checkoutList = $localStorage.checkoutList;
@@ -35,7 +35,10 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$localStorage',function($sco
       };
       console.log(nonce)
       console.log(($scope.total).toString())
-      $http.post('http://localhost:3000/api/orders', $scope.data).success(function(resp){
+      $http.post('http://localhost:3000/api/orders', $scope.data).then(function successCallback (resp){
+        console.log(resp);
+        window.location = "/#/order_summary";
+      }, function errorCallback (resp){
         console.log(resp)
       });
     }

@@ -16,6 +16,7 @@ class API::OrdersController < ApplicationController
     @result = Braintree::Transaction.sale(transaction_params)
     if @result.success?
       render json: {message:"success"}
+      # redirect_to root_url, notice: "Congraulations! Your transaction has been successfully!"
     else
       render json: {message:"fail", errors: @results.errors}
     end
