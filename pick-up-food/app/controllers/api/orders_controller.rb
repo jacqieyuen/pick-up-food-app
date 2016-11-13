@@ -20,7 +20,7 @@ class API::OrdersController < ApplicationController
 private
 
 def order_params
-  params.permit(:preparing, :ready, :picked_up, :user_id)
+  params.permit(:preparing, :ready, :picked_up, :user_id, :pickup_code, :pick_up_time)
 end
 
 

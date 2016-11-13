@@ -52,8 +52,8 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       ready: false,
       picked_up: false,
       user_id : $scope.userData.id,
-      // pick_up_time: ,
-      // pickup_code: 1234
+      pick_up_time: $scope.selectedPickUpTime,
+      pickup_code: 1234
     };
     $http.post('http://localhost:3000/api/orders', $scope.createOrderData).then(function successCallback (resp){
       console.log(resp);
@@ -97,27 +97,30 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       // if (minuteRounded = 0){
       //   flag = true
       // };
-      if(currentHour>=6){
-        for(currentHour; currentHour<=19; currentHour++){
-          // console.log("the hour is "+currentHour);
-          if(flag){
-            minuteRounded=0;
-          };
-          for(minuteRounded; minuteRounded<=55; minuteRounded = minuteRounded+5){
-            // console.log("running");
-            var Minute = 0
-            if (minuteRounded<=6){
-              Minute = "0"+minuteRounded;
-            }else{
-              Minute = minuteRounded};
-            var availableTime = currentHour+":"+Minute;
-            // console.log("time available is "+currentHour+":"+Minute);
-            $scope.timesArray.push(availableTime);
-            flag = true;
 
-          };
-        };
-      }
+      // if(currentHour>=6){
+      //   for(currentHour; currentHour<=19; currentHour++){
+      //     // console.log("the hour is "+currentHour);
+      //     if(flag){
+      //       minuteRounded=0;
+      //     };
+      //     for(minuteRounded; minuteRounded<=55; minuteRounded = minuteRounded+5){
+      //       // console.log("running");
+      //       var Minute = 0
+      //       if (minuteRounded<=6){
+      //         Minute = "0"+minuteRounded;
+      //       }else{
+      //         Minute = minuteRounded};
+      //       var availableTime = currentHour+":"+Minute;
+      //       // console.log("time available is "+currentHour+":"+Minute);
+      //       $scope.timesArray.push(availableTime);
+      //       flag = true;
+
+      //     };
+      //   };
+      // }
+            $scope.timesArray.push("11:33");
+
       // else{alert("We are open between 7am-9pm. You may start placing orders at 6am and last order is at 7:55pm")}
     }
     listOfTimes();
@@ -125,7 +128,19 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
   };
   $scope.createTimes();
   $scope.showSelectedTime = function () {
+    console.log(parseInt($scope.pickedTime.slice(0,$scope.pickedTime.indexOf(":"))));
+    $scope.hourOfPickUp = parseInt($scope.pickedTime.slice(0,$scope.pickedTime.indexOf(":")))
+    console.log($scope.pickedTime.slice($scope.pickedTime.indexOf(":")+1));
+    $scope.minuteOfPickUp = parseInt($scope.pickedTime.slice($scope.pickedTime.indexOf(":")+1))
     console.log($scope.pickedTime);
+    $scope.currentDate = new Date();
+    console.log($scope.currentDate)
+
+    console.log ($scope.hourOfPickUp);
+    console.log($scope.minuteOfPickUp);
+    $scope.selectedPickUpTime = new Date($scope.currentDate.setHours($scope.hourOfPickUp, $scope.minuteOfPickUp));
+    console.log($scope.selectedPickUpTime);
+    // console.log($scope.currentDate)
     // $scope.createTimes();
 
   };
