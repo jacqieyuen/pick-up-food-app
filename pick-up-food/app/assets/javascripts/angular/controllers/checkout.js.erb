@@ -1,20 +1,20 @@
 app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', function($scope, $http, $location, UserService, $localStorage){
   $scope.message = "Checkout Page"
   $scope.userData = UserService.user
-  console.log($scope.userData.id)
+  // console.log($scope.userData.id)
   $scope.checkoutList = $localStorage.checkoutList;
-  console.log($scope.checkoutList);
+  // console.log($scope.checkoutList);
 
-  console.log($scope.checkoutList[0])
+  // console.log($scope.checkoutList[0])
 
-  console.log($scope.checkoutList[0].id)
+  // console.log($scope.checkoutList[0].id)
 
   $scope.deleteItem = function($index){
     $scope.deletedItem = $scope.checkoutList.splice($index, 1);
-    console.log("item that was deleted")
-    console.log($scope.deletedItem)
-    console.log("items left in checkoutList")
-    console.log($scope.checkoutList)
+    // console.log("item that was deleted")
+    // console.log($scope.deletedItem)
+    // console.log("items left in checkoutList")
+    // console.log($scope.checkoutList)
   };
 
 
@@ -34,19 +34,19 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
     braintree.setup($scope.clientToken, 'dropin', {
       container: 'dropin-container',
       paymentMethodNonceReceived: function (event, nonce) {
-      $scope.data = {
-        amount: ($scope.total).toString(),
-        payment_method_nonce: nonce
-      };
-      console.log(nonce)
-      console.log(($scope.total).toString())
-      $http.post('http://localhost:3000/api/transactions', $scope.data).then(function successCallback (resp){
-        console.log(resp);
-        $scope.createOrder();
-      }, function errorCallback (resp){
-        console.log(resp)
-      });
-    }
+        $scope.data = {
+          amount: ($scope.total).toString(),
+          payment_method_nonce: nonce
+        };
+        // console.log(nonce)
+        // console.log(($scope.total).toString())
+        $http.post('http://localhost:3000/api/transactions', $scope.data).then(function (resp){
+          console.log(resp);
+          $scope.createOrder();
+        }, function (resp){
+          console.log(resp)
+        });
+      }
     });
   });
 
@@ -96,7 +96,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
 
     currentHour = (minutePlus15(round5(currentMinute), currentHour)).hour;
     // console.log(minuteRounded)
-    console.log("this is the heehafhkj " +currentHour);
+    // console.log("this is the heehafhkj " +currentHour);
 
     function listOfTimes(){
       // if (minuteRounded = 0){
@@ -133,18 +133,18 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
   };
   $scope.createTimes();
   $scope.showSelectedTime = function () {
-    console.log(parseInt($scope.pickedTime.slice(0,$scope.pickedTime.indexOf(":"))));
+    // console.log(parseInt($scope.pickedTime.slice(0,$scope.pickedTime.indexOf(":"))));
     $scope.hourOfPickUp = parseInt($scope.pickedTime.slice(0,$scope.pickedTime.indexOf(":")))
-    console.log($scope.pickedTime.slice($scope.pickedTime.indexOf(":")+1));
+    // console.log($scope.pickedTime.slice($scope.pickedTime.indexOf(":")+1));
     $scope.minuteOfPickUp = parseInt($scope.pickedTime.slice($scope.pickedTime.indexOf(":")+1))
-    console.log($scope.pickedTime);
+    // console.log($scope.pickedTime);
     $scope.currentDate = new Date();
-    console.log($scope.currentDate)
+    // console.log($scope.currentDate)
 
-    console.log ($scope.hourOfPickUp);
-    console.log($scope.minuteOfPickUp);
+    // console.log ($scope.hourOfPickUp);
+    // console.log($scope.minuteOfPickUp);
     $scope.selectedPickUpTime = new Date($scope.currentDate.setHours($scope.hourOfPickUp, $scope.minuteOfPickUp));
-    console.log($scope.selectedPickUpTime);
+    // console.log($scope.selectedPickUpTime);
     // console.log($scope.currentDate)
     // $scope.createTimes();
 
@@ -153,4 +153,4 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
 ///////////////////////////////////////////////////
 
 
-}])
+}]);

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   root 'static_pages#index'
   get '/api/transactions/get_client_token' => "get_client_token"
   get '/api/user' => "api/users#user_profile", defaults: {format: 'json'}
+  get '/api/order_orderproducts/:id' => "api/orders#order_ordersproducts", defaults: {format: 'json'}
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
    namespace :api do
     resources :orders, only: [:index, :create], defaults: { :format => 'json' }
