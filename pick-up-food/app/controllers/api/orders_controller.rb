@@ -7,9 +7,14 @@ class API::OrdersController < ApplicationController
   end
 
   def create
-    @order = Order.create(order_params)
+    @order = Order.new(order_params)
 
-    if @order
+
+    if @order.save
+      order_products_params[:products].each do |product|
+        puts(product)
+        @order.order_products.create(product_id: product[:id])
+      end
       render json: @order
     else
       render json: {message: "error"}
@@ -23,6 +28,9 @@ def order_params
   params.permit(:preparing, :ready, :picked_up, :user_id, :pickup_code, :pick_up_time)
 end
 
+def order_products_params
+  params.permit(products: [:id])
+end
 
 
 end

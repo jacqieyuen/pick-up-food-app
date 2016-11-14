@@ -13,10 +13,10 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li ng-if="user == false"><a href="/#/login">Log In</a></li>
-            <li ng-if="user == false"><a href="/#/signup">Sign Up</a></li>
-            <li ng-if="user == true"><a href="">Profile</a></li>
-            <li ng-if="user == true"><a href="" ng-click="logout()">Log Out</a></li>
+            <li ng-hide="user.loggedin"><a href="/#/login">Log In</a></li>
+            <li ng-hide="user.loggedin"><a href="/#/signup">Sign Up</a></li>
+            <li ng-show="user.loggedin"><a href="">Profile</a></li>
+            <li ng-show="user.loggedin"><a href="" ng-click="logout()">Log Out</a></li>
           </ul>
         </li>
       </ul>

@@ -1,4 +1,4 @@
-app.controller('StaticPagesCtrl', ['$scope', '$auth', function($scope, $auth){
+app.controller('StaticPagesCtrl', ['$scope', '$auth', 'UserService', function($scope, $auth, UserService){
   $scope.message = "Hello World!";
   // $scope.logout = function () {
   //   $auth.signOut().then(function(resp) {
@@ -7,5 +7,6 @@ app.controller('StaticPagesCtrl', ['$scope', '$auth', function($scope, $auth){
   //     console.log(resp);
   //   });
   // };
+  $scope.user = UserService.user;
   console.log($scope.user)
 }]);

@@ -1,9 +1,13 @@
 app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', function($scope, $http, $location, UserService, $localStorage){
   $scope.message = "Checkout Page"
-  $scope.userData = UserService.userData
+  $scope.userData = UserService.user
   console.log($scope.userData.id)
   $scope.checkoutList = $localStorage.checkoutList;
   console.log($scope.checkoutList);
+
+  console.log($scope.checkoutList[0])
+
+  console.log($scope.checkoutList[0].id)
 
   $scope.deleteItem = function($index){
     $scope.deletedItem = $scope.checkoutList.splice($index, 1);
@@ -53,10 +57,11 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       picked_up: false,
       user_id : $scope.userData.id,
       pick_up_time: $scope.selectedPickUpTime,
-      pickup_code: 1234
+      pickup_code: 1234,
+      products: $scope.checkoutList
     };
     $http.post('http://localhost:3000/api/orders', $scope.createOrderData).then(function successCallback (resp){
-      console.log(resp);
+      console.log(resp.data);
       window.location = "/#/order_summary";
       $localStorage.$reset();
 
@@ -83,7 +88,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       x = x + 15;
       if (x>55){
         x = x - 60;
-        return {minute: round5(x), hour: (currentHour = currentHour+1)};
+        return {minute: round5(x), hour: (currentHour+1)};
         ;
       }else{return {minute: x, hour: currentHour};}
     };
@@ -91,35 +96,35 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
 
     currentHour = (minutePlus15(round5(currentMinute), currentHour)).hour;
     // console.log(minuteRounded)
-    // console.log("this is the heehafhkj " +currentHour);
+    console.log("this is the heehafhkj " +currentHour);
 
     function listOfTimes(){
       // if (minuteRounded = 0){
       //   flag = true
       // };
 
-      // if(currentHour>=6){
-      //   for(currentHour; currentHour<=19; currentHour++){
-      //     // console.log("the hour is "+currentHour);
-      //     if(flag){
-      //       minuteRounded=0;
-      //     };
-      //     for(minuteRounded; minuteRounded<=55; minuteRounded = minuteRounded+5){
-      //       // console.log("running");
-      //       var Minute = 0
-      //       if (minuteRounded<=6){
-      //         Minute = "0"+minuteRounded;
-      //       }else{
-      //         Minute = minuteRounded};
-      //       var availableTime = currentHour+":"+Minute;
-      //       // console.log("time available is "+currentHour+":"+Minute);
-      //       $scope.timesArray.push(availableTime);
-      //       flag = true;
+      if(currentHour>=6){
+        for(currentHour; currentHour<=19; currentHour++){
+          // console.log("the hour is "+currentHour);
+          if(flag){
+            minuteRounded=0;
+          };
+          for(minuteRounded; minuteRounded<=55; minuteRounded = minuteRounded+5){
+            // console.log("running");
+            var Minute = 0
+            if (minuteRounded<=6){
+              Minute = "0"+minuteRounded;
+            }else{
+              Minute = minuteRounded};
+            var availableTime = currentHour+":"+Minute;
+            // console.log("time available is "+currentHour+":"+Minute);
+            $scope.timesArray.push(availableTime);
+            flag = true;
 
-      //     };
-      //   };
-      // }
-            $scope.timesArray.push("11:33");
+          };
+        };
+      }
+            // $scope.timesArray.push("11:33");
 
       // else{alert("We are open between 7am-9pm. You may start placing orders at 6am and last order is at 7:55pm")}
     }
