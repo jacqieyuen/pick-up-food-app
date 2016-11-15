@@ -3,6 +3,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
   $scope.userData = UserService.user
   // console.log($scope.userData.id)
   $scope.checkoutList = $localStorage.checkoutList;
+  $scope.ordersummary = false
   // console.log($scope.checkoutList);
 
   // console.log($scope.checkoutList[0])
@@ -61,13 +62,39 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       products: $scope.checkoutList
     };
     $http.post('http://localhost:3000/api/orders', $scope.createOrderData).then(function successCallback (resp){
-      console.log(resp.data);
-      window.location = "/#/order_summary";
+      // console.log(resp.data);
+      console.log(resp.data.id);
+      $scope.orderId = resp.data.id;
+      $scope.getOrderDetails($scope.orderId);
+      // window.location = "/#/order_summary";
       $localStorage.$reset();
 
     }, function errorCallback (resp){
       console.log(resp)
     })
+  };
+
+  $scope.getOrderDetails = function (id){
+    console.log("get order details")
+    $http.get('http://localhost:3000/api/order/products/'+id).then(function successCallback (resp){
+      console.log(resp.data.user)
+      $scope.orderUser = resp.data.user
+      console.log(resp.data.order)
+      $scope.orderOrder = resp.data.order
+      $scope.orderPickUpTime = resp.data.order.pick_up_time
+
+      console.log(resp.data.order_products)
+      $scope.orderOrderProducts = resp.data.order_products
+      $scope.ordersummary = true
+
+    }, function errorCallback(resp){
+      console.log(resp)
+    })
+  };
+
+  $scope.localTime = function () {
+    var time = (new Date($scope.orderPickUpTime)).toString()
+     return time.slice(0,time.indexOf("GMT"));
   };
 
   $scope.createTimes = function () {
@@ -79,7 +106,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
     var currentHour = currentTime.getHours();
     var currentMinute = currentTime.getMinutes();
     function round5(x) {
-    if (x<55){
+    if (x<60){
     return Math.ceil(x/5)*5;
     }else{return 0}
     };

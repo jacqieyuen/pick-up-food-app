@@ -1,74 +1,84 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a href="/#/menu" class="navbar-brand">M E N U</a>
-      <a href="/#/"" class="navbar-brand">Home</a>
-    </div>
-    <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="">shopping basket</a></li>
-        <li class="dropdown">
-          <a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-            person
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li ng-if="user == false"><a href="/#/login">Log In</a></li>
-            <li ng-if="user == false"><a href="/#/signup">Sign Up</a></li>
-            <li ng-if="user == true"><a href="">Profile</a></li>
-            <li ng-if="user == true"><a href="" ng-click="logout()">Log Out</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div class="container" style="padding-top: 65px;">
-
-  <div class="row">
-    <a href="/#/menu"><button type="button" class="btn btn-info btn-lg pull-right" >Menu</button></a>
-    <h1> {{ message }} </h1>
-  </div>
-
-  <div class="row" ng-repeat="product in checkoutList track by $index">
-    <div class="col-md-5">
-      <img class="modal_img" ng-src="{{product.img_path}}">
-    </div>
-    <div class="col-md-6">
-      <div class="row">
-        <div class="col-md-6">
-
-        </div>
-        <div class="col-md-6">
-          <h4>${{ product.price }}</h4>
-        </div>
-      </div>
-      <div class="row">
-        <h4>{{ product.name }}</h4>
+<div ng-hide="ordersummary">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/#/menu" class="navbar-brand">M E N U</a>
+        <a href="/" class="navbar-brand">Home</a>
       </div>
     </div>
-    <div class="col-md-1">
-      <button ng-click="deleteItem($index)"><strong>X</strong></button>
+  </nav>
+
+
+  <div class="container" style="padding-top: 65px;">
+
+    <div class="row">
+      <a href="/#/menu"><button type="button" class="btn btn-info btn-lg pull-right" >Menu</button></a>
+      <h1> {{ message }} </h1>
     </div>
-  </div>
-  <div class="row">
-    <div class="clearfix">
-      <div class="pull-left">Total: {{ checkoutTotal() }}</div>
-      <!-- <a href="/#/checkout"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a> -->
+
+    <div class="row" ng-repeat="product in checkoutList track by $index">
+      <div class="col-md-5">
+        <img class="modal_img" ng-src="{{product.img_path}}">
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6">
+
+          </div>
+          <div class="col-md-6">
+            <h4>${{ product.price }}</h4>
+          </div>
+        </div>
+        <div class="row">
+          <h4>{{ product.name }}</h4>
+        </div>
+      </div>
+      <div class="col-md-1">
+        <button ng-click="deleteItem($index)"><strong>X</strong></button>
+      </div>
     </div>
-  </div>
-  <div class="row pickTime">
-    <label>Pick A Time:
-      <select ng-model="pickedTime" ng-options="time for time in timesArray" ng-change="showSelectedTime()"></select>
-    </label>
-  </div>
-  <div class="row">
-    <form id="checkout">
-      <div id="dropin-container"></div>
-      <input type="submit" value="Pay {{ checkoutTotal() }}">
-    </form>
+    <div class="row">
+      <div class="clearfix">
+        <div class="pull-left">Total: {{ checkoutTotal() }}</div>
+        <!-- <a href="/#/checkout"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a> -->
+      </div>
+    </div>
+    <div class="row pickTime">
+      <label>Pick A Time:
+        <select ng-model="pickedTime" ng-options="time for time in timesArray" ng-change="showSelectedTime()"></select>
+      </label>
+    </div>
+    <div class="row">
+      <form id="checkout">
+        <div id="dropin-container"></div>
+        <input type="submit" value="Pay {{ checkoutTotal() }}">
+      </form>
+    </div>
+
   </div>
 
 </div>
 
+<div class="container" ng-show="ordersummary">
+  <div class="row">
+    <a href="/#/menu"><button type="button" class="btn btn-info btn-lg pull-right" >Menu</button></a>
+    <h1>Order Summary</h1>
+  </div>
 
+  <div class="row">
+    <h4>{{ localTime() }} </h4>
+    <h4>{{ orderOrder.pickup_code }} </h4>
+    <h4>{{ checkoutTotal() }}</h4>
+    <div ng-repeat="orderproduct in orderOrderProducts">
+      <div ng-repeat="(key, value) in orderproduct " ng-if="key == 'product'">
+        <h1 >
+          {{ value.name }}
+        </h1>
+        <img ng-src="{{ value.img_path }}">
+        <ul>
+          <li>{{ value.price }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

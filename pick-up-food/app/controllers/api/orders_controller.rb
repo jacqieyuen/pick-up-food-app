@@ -1,9 +1,11 @@
 class API::OrdersController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :get_orderproducts
+
+
   def index
-    render json: Order.all
+    @orders = Order.all.order(:pick_up_time).includes(:order_products, :products)
+    # @orders = Order.all.order(:pick_up_time)
   end
 
   def create
@@ -22,15 +24,9 @@ class API::OrdersController < ApplicationController
 
   end
 
-  def order_ordersproducts
-  end
 
 private
 
-def get_orderproducts
-  @orderproducts = Order.find_by(id: params[:id]).order_products.includes(:product)
-
-end
 
 def order_params
   params.permit(:preparing, :ready, :picked_up, :user_id, :pickup_code, :pick_up_time)

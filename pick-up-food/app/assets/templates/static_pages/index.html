@@ -3,12 +3,19 @@
     <h1> {{ message }} </h1>
     {{1+1}}
   </div>
-
+  <div ng-repeat="item in arrayOfObjectsObjects">
+    <div ng-repeat="unit in item">
+      <h1 ng-if="unit == product">{{ unit }}</h1>
+    </div>
+  </div>
  <!--  <div class="row">
     <a href="/#/signup"><button class="btn btn-primary">Signup</button></a>
     <a href="/#/login"><button class="btn btn-primary">Login</button></a>
     <a href="/#/menu"><button class="btn btn-primary">Menu</button></a>
    <button class="btn btn-danger" ng-click="logout()">Logout</button>
   </div> -->
+
+
+
 </div>
 

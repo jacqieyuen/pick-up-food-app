@@ -1,0 +1,14 @@
+app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService', function($scope, $http, $auth, UserService){
+
+  $scope.getTodaysOrders = function() {
+
+    $http.get("http://localhost:3000/api/orders").then(function(resp){
+      console.log(resp.data)
+    }, function errorCallback(resp){
+      console.log(resp)
+    })
+
+  };
+  $scope.getTodaysOrders()
+
+}]);
