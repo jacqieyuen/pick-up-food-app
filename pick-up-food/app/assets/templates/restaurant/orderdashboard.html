@@ -5,7 +5,7 @@
       <div class="row">
         <h1 class="text-center">Orders</h1>
       </div>
-      <div class="row" style="background-color:red;" ng-repeat="data in orderDashboardData" ng-if="data.preparing==false">
+      <div class="row" style="background-color:red;" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && !data.ready && !data.picked_up">
         <div class="row" >
           <div class="col-md-6 text-center" style="background-color:yellow;" >
             {{ data.pickup_code }}
@@ -14,10 +14,10 @@
             {{ data.pick_up_time }}
           </div>
           <div class="row text-center" style="background-color:pink;" ng-repeat="product in data.products">
-            <h3 >{{product.name}}</h3>
+            <p>{{product.name}}</p>
           </div>
           <div class="row text-center">
-            <button>Start</button>
+            <button ng-click="startPreparing(data.id)">Start</button>
           </div>
         </div>
       </div>
@@ -26,16 +26,44 @@
       <div class="row">
         <h1 class="text-center">Preparing</h1>
       </div>
-      <div class="row">
+      <div class="row" style="background-color:red;" ng-repeat="data in orderDashboardData track by data.id" ng-if="data.preparing && !data.ready && !data.picked_up">
+        <div class="row" >
+          <div class="col-md-6 text-center" style="background-color:yellow;" >
+            {{ data.pickup_code }}
+          </div>
+          <div class="col-md-6 text-center" style="background-color:orange;" >
+            {{ data.pick_up_time }}
+          </div>
+          <div class="row text-center" style="background-color:pink;" ng-repeat="product in data.products">
+            <p>{{product.name}}</p>
+          </div>
+          <div class="row text-center">
+            <button ng-click="foodIsReady(data.id)">Finished</button>
+            <button ng-click="oppsNotPreparing(data.id)">Back</button>
 
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-md-4">
       <div class="row">
         <h1 class="text-center">Finished</h1>
       </div>
-      <div class="row">
-
+      <div class="row" style="background-color:red;" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && data.ready && !data.picked_up">
+        <div class="row" >
+          <div class="col-md-6 text-center" style="background-color:yellow;" >
+            {{ data.pickup_code }}
+          </div>
+          <div class="col-md-6 text-center" style="background-color:orange;" >
+            {{ data.pick_up_time }}
+          </div>
+          <div class="row text-center" style="background-color:pink;" ng-repeat="product in data.products">
+            <p>{{product.name}}</p>
+          </div>
+          <div class="row text-center">
+            <button ng-click="oppsFoodNotReady(data.id)">Back</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

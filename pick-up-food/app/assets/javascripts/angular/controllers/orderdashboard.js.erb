@@ -10,6 +10,88 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
     })
 
   };
-  $scope.getTodaysOrders()
+  $scope.getTodaysOrders();
+
+  $scope.startPreparing = function (id) {
+    var preparingData = {
+      preparing: true,
+      ready: false,
+      picked_up: false
+    }
+    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+          // console.log(resp);
+          console.log(resp.data);
+          $scope.getTodaysOrders();
+
+        }, function (resp){
+          console.log(resp)
+        });
+  }
+
+  $scope.foodIsReady = function (id) {
+    var preparingData = {
+      preparing: false,
+      ready: true,
+      picked_up: false
+    }
+    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+          // console.log(resp);
+          console.log(resp.data);
+          $scope.getTodaysOrders();
+
+        }, function (resp){
+          console.log(resp)
+        });
+  }
+
+  $scope.oppsNotPreparing = function (id) {
+    var preparingData = {
+      preparing: false,
+      ready: false,
+      picked_up: false
+    }
+    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+          // console.log(resp);
+          console.log(resp.data);
+          $scope.getTodaysOrders();
+
+        }, function (resp){
+          console.log(resp)
+        });
+  }
+
+  $scope.oppsFoodNotReady = function (id) {
+    var preparingData = {
+      preparing: true,
+      ready: false,
+      picked_up: false
+    }
+    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+          // console.log(resp);
+          console.log(resp.data);
+          $scope.getTodaysOrders();
+
+        }, function (resp){
+          console.log(resp)
+        });
+  }
+
+  $scope.foodPickedUp = function (id) {
+    var preparingData = {
+      preparing: false,
+      ready: false,
+      picked_up: true
+    }
+    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+          // console.log(resp);
+          console.log(resp.data);
+          $scope.getTodaysOrders();
+
+        }, function (resp){
+          console.log(resp)
+        });
+  }
+
+
 
 }]);
