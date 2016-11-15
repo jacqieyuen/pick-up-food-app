@@ -4,6 +4,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
 
     $http.get("http://localhost:3000/api/orders").then(function(resp){
       console.log(resp.data)
+      $scope.orderDashboardData = resp.data
     }, function errorCallback(resp){
       console.log(resp)
     })
