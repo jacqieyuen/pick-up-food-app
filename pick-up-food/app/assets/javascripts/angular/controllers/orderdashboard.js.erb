@@ -122,7 +122,19 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
 
   }
 
+$scope.search = function () {
 
+console.log($scope.searchId)
+
+$http.get("http://localhost:3000/api/orders/"+$scope.searchId).then(function (resp){
+          // console.log(resp);
+          console.log(resp.data);
+          $scope.getSearchResults = resp.data;
+          $scope.searchId=""
+        }, function (resp){
+          console.log(resp)
+        });
+}
 
 
 }]);

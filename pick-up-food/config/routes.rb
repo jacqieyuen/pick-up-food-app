@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
    namespace :api do
-    resources :orders, only: [:index, :create, :update], defaults: { :format => 'json' }
+    resources :orders, only: [:index, :create, :update, :show], defaults: { :format => 'json' }
     resources :products, only: [:index], defaults: { :format => 'json' }
     # resources :ingredients, only: [:index], defaults: { :format => 'json' }
     resources :transactions, only: [:create], defaults: { :format => 'json' }

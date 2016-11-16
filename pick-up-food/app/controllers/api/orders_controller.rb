@@ -2,9 +2,13 @@ class API::OrdersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :get_orders, only:[:index]
-  before_action :get_order, only:[:update, :destroy]
+  before_action :get_order, only:[:update, :destroy, :show]
 
   def index
+  end
+
+  def show
+    render json: @order
   end
 
   def create
@@ -43,9 +47,6 @@ end
 
 def get_order
   @order = Order.find_by(id: params[:id])
-  if @order.nil?
-    render json: {message: "Cannot find Order"}, status: 404
-  end
 end
 
 def prepare_ready_pickedup_params
