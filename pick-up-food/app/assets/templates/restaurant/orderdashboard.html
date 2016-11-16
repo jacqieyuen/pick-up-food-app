@@ -99,7 +99,21 @@ ng-show="orderPickupTabs"
             <p>Search Invalid, Unable to Find Product With {{searchId}} ID</p>
           </div>
           <div class="row" ng-show="searchFound">
-           <p>search found</p>
+            <h4>{{searchResultData.id}}</h4>
+            <p ng-repeat="result in searchResultData.products"> {{result.name}} </p>
+            <div ng-if="!searchResultData.preparing && !searchResultData.ready && !searchResultData.picked_up">
+              <button ng-click="startPreparing(searchResultData.id)">Start</button>
+            </div>
+            <div ng-if="searchResultData.preparing && !searchResultData.ready && !searchResultData.picked_up">
+              <button ng-click="foodIsReady(searchResultData.id)">Finished</button>
+              <button ng-click="oppsNotPreparing(searchResultData.id)">Back</button>
+            </div>
+            <div ng-if="!searchResultData.preparing && searchResultData.ready && !searchResultData.picked_up">
+              <button ng-click="foodPickedUp(searchResultData.id)">Picked Up</button>
+            </div>
+            <div ng-if="!searchResultData.preparing && !searchResultData.ready && searchResultData.picked_up">
+              <button ng-click="oppsFoodNotPickedUp(searchResultData.id)">Food Already Picked Up (?)</button>
+            </div>
           </div>
         </div>
       </div>
@@ -141,7 +155,7 @@ ng-show="orderPickupTabs"
             <p>{{product.name}}</p>
           </div>
           <div class="row text-center">
-            <button ng-click="oppsFoodNotPickedUp (data.id)">Back</button>
+            <button ng-click="oppsFoodNotPickedUp(data.id)">Back</button>
           </div>
         </div>
       </div>

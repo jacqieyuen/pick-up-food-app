@@ -8,7 +8,7 @@ class API::OrdersController < ApplicationController
   end
 
   def show
-    render json: @order
+    # render json: @order
   end
 
   def create
@@ -42,11 +42,12 @@ class API::OrdersController < ApplicationController
 private
 
 def get_orders
-  @orders = Order.all.order(:pick_up_time).includes(:order_products, :products)
+  @orders = Order.includes(:order_products, :products).all.order(:pick_up_time)
 end
 
 def get_order
-  @order = Order.find_by(id: params[:id]).includes(:order_products, :products)
+  @order = Order.includes(:order_products, :products).find_by(id: params[:id])
+
 end
 
 def prepare_ready_pickedup_params

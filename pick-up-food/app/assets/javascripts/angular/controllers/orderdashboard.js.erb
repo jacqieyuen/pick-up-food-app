@@ -22,6 +22,8 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
+          $scope.results = false;
+
 
         }, function (resp){
           console.log(resp)
@@ -38,6 +40,8 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
+          $scope.results = false;
+
 
         }, function (resp){
           console.log(resp)
@@ -54,6 +58,8 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
+          $scope.results = false;
+
 
         }, function (resp){
           console.log(resp)
@@ -70,6 +76,8 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
+          $scope.results = false;
+
 
         }, function (resp){
           console.log(resp)
@@ -86,6 +94,8 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
+          $scope.results = false;
+
 
         }, function (resp){
           console.log(resp)
@@ -102,6 +112,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
+          $scope.results = false;
 
         }, function (resp){
           console.log(resp)
@@ -139,6 +150,7 @@ $http.get("http://localhost:3000/api/orders/"+$scope.searchId).then(function (re
           console.log("found")
           console.log(resp);
           console.log(resp.data);
+          $scope.searchResultData = resp.data
           $scope.searchFound = true;
 
           }
