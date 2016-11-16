@@ -155,10 +155,15 @@ $http.get("http://localhost:3000/api/orders/"+$scope.searchId).then(function (re
 
           }
           $scope.getSearchResults = resp.data;
-          $scope.searchId=""
+
         }, function (resp){
-          console.log(resp)
+          console.log(resp);
+          $scope.searchFound = false;
+
         });
+          $scope.searchInputedId =$scope.searchId
+          $scope.searchId=""
+
 }
 
 

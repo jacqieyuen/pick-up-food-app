@@ -62,6 +62,9 @@ end
 
 def get_todays_order
   @order = Order.includes(:order_products, :products).where("created_at >= ?", Time.zone.now.beginning_of_day).find_by(id: params[:id])
+  if @order.nil?
+      render json: "null"
+  end
 
 end
 
