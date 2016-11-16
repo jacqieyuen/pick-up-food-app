@@ -46,7 +46,7 @@ def get_orders
 end
 
 def get_order
-  @order = Order.find_by(id: params[:id])
+  @order = Order.find_by(id: params[:id]).includes(:order_products, :products)
 end
 
 def prepare_ready_pickedup_params

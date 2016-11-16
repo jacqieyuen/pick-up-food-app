@@ -122,13 +122,26 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
 
   }
 
+$scope.results = false
+
 $scope.search = function () {
 
-console.log($scope.searchId)
+// console.log($scope.searchId)
 
 $http.get("http://localhost:3000/api/orders/"+$scope.searchId).then(function (resp){
+          $scope.results = true;
           // console.log(resp);
+          if (resp.data===null) {
+            console.log("not found");
+            console.log(resp);
+            $scope.searchFound = false;
+          }else {
+          console.log("found")
+          console.log(resp);
           console.log(resp.data);
+          $scope.searchFound = true;
+
+          }
           $scope.getSearchResults = resp.data;
           $scope.searchId=""
         }, function (resp){

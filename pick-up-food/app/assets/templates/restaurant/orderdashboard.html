@@ -1,10 +1,10 @@
-<ul class="nav nav-pills">
+<!-- <ul class="nav nav-pills">
   <li><a href="" ng-click="clickOrders()">Orders</a></li>
   <li><a href="" ng-click="clickPickups()">Pickup</a></li>
 </ul>
 
 <div class="container" >
-<!-- ng-show="orderPickupTabs" -->
+ng-show="orderPickupTabs"
   <div class="row">
     <div class="col-md-4">
       <div class="row">
@@ -74,7 +74,7 @@
   </div>
 
 </div>
-
+ -->
 
 <div class="container" >
 <!-- ng-show="!orderPickupTabs" -->
@@ -94,19 +94,13 @@
             </div>
           </div>
         </div>
-        <div class="row" ng-repeat="(key, value) in getSearchResults">
-          <div class="col-md-6 text-center" style="background-color:yellow;" ng-if="key=='id'">
-            {{ value }}
+        <div ng-show="results">
+          <div class="row" ng-show="!searchFound">
+            <p>Search Invalid, Unable to Find Product With {{searchId}} ID</p>
           </div>
-          <div class="col-md-6 text-center" style="background-color:orange;" ng-if="key=='pick_up_time'">
-            {{ value }}
+          <div class="row" ng-show="searchFound">
+           <p>search found</p>
           </div>
-          <div class="row text-center" style="background-color:pink;" ng-if="key=='pickup_code'">
-            <p>{{ value }}</p>
-          </div>
-          <!-- <div class="row text-center">
-            <button >button</button>
-          </div> -->
         </div>
       </div>
     </div>
