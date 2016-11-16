@@ -1,14 +1,21 @@
 class API::OrdersController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :get_orders, only:[:index]
-  before_action :get_order, only:[:update, :destroy, :show]
+  before_action :get_todays_orders, only:[:index]
+  before_action :get_todays_order, only:[:update, :destroy, :show]
+  before_action :get_orders, only: [:get_all_orders]
+  before_action :get_order, only: [:get_any_order]
 
   def index
   end
 
   def show
-    # render json: @order
+  end
+
+  def get_all_orders
+  end
+
+  def get_any_order
   end
 
   def create
@@ -42,11 +49,19 @@ class API::OrdersController < ApplicationController
 private
 
 def get_orders
-  @orders = Order.includes(:order_products, :products).all.order(:pick_up_time)
+  @all_orders = Order.includes(:order_products, :products).order(:pick_up_time)
 end
 
 def get_order
-  @order = Order.includes(:order_products, :products).find_by(id: params[:id])
+  @any_order = Order.includes(:order_products, :products).find_by(id: params[:id])
+end
+
+def get_todays_orders
+  @orders = Order.includes(:order_products, :products).where("created_at >= ?", Time.zone.now.beginning_of_day).order(:pick_up_time)
+end
+
+def get_todays_order
+  @order = Order.includes(:order_products, :products).where("created_at >= ?", Time.zone.now.beginning_of_day).find_by(id: params[:id])
 
 end
 
