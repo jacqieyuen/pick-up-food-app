@@ -1,4 +1,4 @@
-app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', function($scope, $http, $location, UserService, $localStorage){
+app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', 'URL_CONSTANTS', function($scope, $http, $location, UserService, $localStorage, URL_CONSTANTS){
   $scope.message = "Checkout Page"
   $scope.userData = UserService.user
   // console.log($scope.userData.id)
@@ -28,7 +28,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
     return $scope.total;
   }
 
-  $http.get('http://localhost:3000/api/transactions/get_client_token').success(function(response){
+  $http.get(URL_CONSTANTS.domain + '/api/transactions/get_client_token').success(function(response){
     $scope.clientToken = response.key
     // console.log($scope.clientToken);
     // console.log(($scope.total).toString());
@@ -41,7 +41,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
         };
         // console.log(nonce)
         // console.log(($scope.total).toString())
-        $http.post('http://localhost:3000/api/transactions', $scope.data).then(function (resp){
+        $http.post(URL_CONSTANTS.domain + '/api/transactions', $scope.data).then(function (resp){
           console.log(resp);
           $scope.createOrder();
         }, function (resp){
@@ -61,7 +61,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       pickup_code: 1234,
       products: $scope.checkoutList
     };
-    $http.post('http://localhost:3000/api/orders', $scope.createOrderData).then(function successCallback (resp){
+    $http.post(URL_CONSTANTS.domain + '/api/orders', $scope.createOrderData).then(function successCallback (resp){
       // console.log(resp.data);
       console.log(resp.data.id);
       $scope.orderId = resp.data.id;
@@ -76,7 +76,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
 
   $scope.getOrderDetails = function (id){
     console.log("get order details")
-    $http.get('http://localhost:3000/api/order/products/'+id).then(function successCallback (resp){
+    $http.get(URL_CONSTANTS.domain + '/api/order/products/'+id).then(function successCallback (resp){
       console.log(resp.data.user)
       $scope.orderUser = resp.data.user
       console.log(resp.data.order)

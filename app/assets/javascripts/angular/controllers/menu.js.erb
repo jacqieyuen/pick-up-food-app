@@ -1,7 +1,7 @@
-app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', function($scope, $http, $auth, UserService, $localStorage){
+app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', 'URL_CONSTANTS', function($scope, $http, $auth, UserService, $localStorage, URL_CONSTANTS){
   $scope.message = "Menu Page";
 
-  var url = "http://localhost:3000";
+  var url = URL_CONSTANTS.domain;
 
   $http.get(url + '/api/categories').success(function(response){
     // console.log(response);

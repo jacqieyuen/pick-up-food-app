@@ -1,8 +1,8 @@
-app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService', function($scope, $http, $auth, UserService){
+app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService', 'URL_CONSTANTS', function($scope, $http, $auth, UserService, URL_CONSTANTS){
 
   $scope.getTodaysOrders = function() {
 
-    $http.get("http://localhost:3000/api/orders").then(function(resp){
+    $http.get(URL_CONSTANTS.domain + "/api/orders").then(function(resp){
       console.log(resp.data)
       $scope.orderDashboardData = resp.data
     }, function errorCallback(resp){
@@ -18,7 +18,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       ready: false,
       picked_up: false
     }
-    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
@@ -36,7 +36,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       ready: true,
       picked_up: false
     }
-    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
@@ -54,7 +54,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       ready: false,
       picked_up: false
     }
-    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
@@ -72,7 +72,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       ready: false,
       picked_up: false
     }
-    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
@@ -90,7 +90,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       ready: true,
       picked_up: false
     }
-    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
@@ -108,7 +108,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       ready: false,
       picked_up: true
     }
-    $http.put("http://localhost:3000/api/orders/"+id, preparingData).then(function (resp){
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
           // console.log(resp);
           console.log(resp.data);
           $scope.getTodaysOrders();
@@ -139,7 +139,7 @@ $scope.search = function () {
 
 // console.log($scope.searchId)
 
-$http.get("http://localhost:3000/api/orders/"+$scope.searchId).then(function (resp){
+$http.get(URL_CONSTANTS.domain + "/api/orders/"+$scope.searchId).then(function (resp){
           $scope.results = true;
           // console.log(resp);
           if (resp.data===null) {
