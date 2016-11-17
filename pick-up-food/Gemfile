@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'rails_12factor', group: :production
+
 gem "braintree", "~> 2.68.2"
 
 gem 'devise_token_auth'
