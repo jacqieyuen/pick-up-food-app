@@ -1,17 +1,19 @@
 
 
-    <div>
-      <img src="http://3o7tpx32lt6v2lcovs4a53lb.wpengine.netdna-cdn.com/wp-content/uploads/2013/03/3-700x420.jpg" style="width:100%; height: auto; opacity: 0.95; filter: brightness(70%);" >
+  <div id="menuBanner" style="background-image: url(http://3o7tpx32lt6v2lcovs4a53lb.wpengine.netdna-cdn.com/wp-content/uploads/2013/03/3-700x420.jpg); -ms-background-position-x: center;
+  -ms-background-position-y: bottom; background-size: cover; background-repeat: no-repeat;
+  background-color: rgba(0,0,255,0.3);
+  background-position: center bottom;width: 100%; height: 80vh; overflow: hidden; display: flex; flex-direction: column; justify-content: center; ">
 
-    <h1 style="text-align: center; position: absolute; left: 48%; top: 40%; color: white;">MENU</h1>
-
+    <div style=" background-color: red; margin: 0 auto;"></div>
+      <h1 style="text-align: center; color: white;">M E N U</h1>
     </div>
-  <div class="container-fluid" style="padding: 0; margin: 0;">
+  <div class="container-fluid" style="padding: 0; margin: 0">
     <nav id="navbarmenu" class="navbar navbar-inverse" style="text-align: center;">
       <div class="container-fluid" style="display: inline-block; text-align: center;">
         <div class="navbar-header">
           <ul class="nav navbar-nav">
-            <li ng-repeat="category in categories"><a href='' >{{ category.name }}</a></li>
+            <li ng-repeat="category in categories" ><a href='' style="color: white;">{{ category.name }}</a></li>
           </ul>
         </div>
       </div>
@@ -20,9 +22,9 @@
       <button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#myModal">Basket</button>
       <h1> {{ message }} </h1>
     </div> -->
-    <div class="row" ng-repeat="category in categories" style="padding: 0; margin: 2%;">
+    <div class="row" ng-repeat="category in categories" style="margin: 5%;">
       <div>
-        <h2 class="categorySeperator" id="{{ category.name }}">{{ category.name }}</h2>
+        <h2 class="categorySeperator" id="{{ category.name }}" style="color: white; margin-bottom: 3%;">{{ category.name }}</h2>
 
         <div class="col-sm-6 col-md-4" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
           <div class="thumbnail">
