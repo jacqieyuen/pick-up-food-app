@@ -1,73 +1,85 @@
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a href="/#/menu" class="navbar-brand">M E N U </a>
-      <a href="/" class="navbar-brand">HOME </a>
-    </div>
-    <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="" data-toggle="modal" data-target="#myModal">shopping basket</a></li>
-        <li class="dropdown">
-          <a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-            person
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li ng-hide="user.loggedin"><a href="/#/login">Log In</a></li>
-            <li ng-hide="user.loggedin"><a href="/#/signup">Sign Up</a></li>
-            <li ng-show="user.loggedin"><a href="">Profile</a></li>
-            <li ng-show="user.loggedin"><a href="" ng-click="logout()">Log Out</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<div ui-view></div>
-
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Your Basket</h4>
+<div id="mainHeader">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="mainNavBar">
+      <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a href="/#/menu"><div class="navbar-brand navbar-brand-centered" id="menuNav">M E N U</div></a>
       </div>
-      <div class="modal-body" >
-        <div ng-if="checkoutList.length < 1"> <h1>Your Cart is Empty</h1></div>
-        <div class="row" ng-repeat="product in checkoutList track by $index">
-          <div class="col-md-5">
-            <img class="modal_img" ng-src="{{product.img_path}}">
-          </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-6">
 
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="navbar-brand-centered">
+        <ul class="nav navbar-nav">
+          <a href="/" class="navbar-brand" ><span>s i m p l y  l i f e </span></a>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+           <li>
+              <a href="" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li ng-hide="user.loggedin"><a href="/#/login" >Log In</a></li>
+                <li ng-hide="user.loggedin"><a href="/#/signup">Sign Up</a></li>
+                <li ng-show="user.loggedin"><a href="" >Profile</a></li>
+                <li ng-show="user.loggedin"><a href="" ng-click="logout()" >Log Out</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div ui-view></div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Your Basket</h4>
+        </div>
+        <div class="modal-body" >
+          <div ng-if="checkoutList.length < 1"> <h1>Your Cart is Empty</h1></div>
+          <div class="row" ng-repeat="product in checkoutList track by $index">
+            <div class="col-md-5">
+              <img class="modal_img" ng-src="{{product.img_path}}">
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-6">
+
+                </div>
+                <div class="col-md-6">
+                  <h4>${{ product.price }}</h4>
+                </div>
               </div>
-              <div class="col-md-6">
-                <h4>${{ product.price }}</h4>
+              <div class="row">
+                <h4>{{ product.name }}</h4>
               </div>
             </div>
-            <div class="row">
-              <h4>{{ product.name }}</h4>
+            <div class="col-md-1">
+              <button ng-click="deleteItem($index)"><strong>X</strong></button>
             </div>
           </div>
-          <div class="col-md-1">
-            <button ng-click="deleteItem($index)"><strong>X</strong></button>
+
+        </div>
+
+        <div class="modal-footer">
+          <div class="clearfix">
+            <div class="pull-left">Total: {{ checkoutTotal() }}</div>
+            <a href="/#/checkout"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a>
           </div>
         </div>
-
       </div>
 
-      <div class="modal-footer">
-        <div class="clearfix">
-          <div class="pull-left">Total: {{ checkoutTotal() }}</div>
-          <a href="/#/checkout"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a>
-        </div>
-      </div>
     </div>
-
   </div>
 </div>
