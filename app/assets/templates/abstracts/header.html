@@ -60,14 +60,11 @@
             <div class="col-md-6">
               <div class="row">
                 <div class="col-md-6">
-
+                <h4>{{ product.name }}</h4>
                 </div>
                 <div class="col-md-6">
                   <h4>${{ product.price }}</h4>
                 </div>
-              </div>
-              <div class="row">
-                <h4>{{ product.name }}</h4>
               </div>
             </div>
             <div class="col-md-1">
@@ -80,7 +77,10 @@
         <div class="modal-footer">
           <div class="clearfix">
             <div class="pull-left">Total: {{ checkoutTotal() }}</div>
-            <a href="/#/checkout"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a>
+            <a href="/#/login"  ng-hide="user.loggedin"><button class="btn btn-primary">Log In</button></a>
+            <a href="/#/signup" ng-hide="user.loggedin"><button class="btn btn-primary">Sign Up</button></a>
+            <a href="/#/checkout" ng-show="user.loggedin" ng-if="checkoutList.length >= 1"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a>
+            <a href="/#/menu" ng-if="checkoutList.length < 1"><button class="btn btn-primary" ng-click="saveCheckoutList()">Add Something To Your Cart :)</button></a>
           </div>
         </div>
       </div>

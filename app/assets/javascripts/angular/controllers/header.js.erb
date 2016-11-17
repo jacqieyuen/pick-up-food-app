@@ -1,7 +1,7 @@
 app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', 'UserService', '$localStorage', function($scope, $auth, $rootScope, UserService, $localStorage){
 
   $scope.user = UserService.user;
-
+  // console.log(($scope.user).loggedin)
   $scope.initCheckoutList = function () {
     $scope.checkoutList = [];
     $scope.checkoutList = $localStorage.checkoutList
