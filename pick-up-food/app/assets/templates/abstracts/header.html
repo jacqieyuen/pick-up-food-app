@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-bottom">
   <div class="container-fluid">
     <div class="navbar-header">
       <a href="/#/menu" class="navbar-brand">M E N U </a>
@@ -23,7 +23,7 @@
     </div>
   </div>
 </nav>
-<div ui-view style="padding-top: 65px;"></div>
+<div ui-view></div>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -36,6 +36,7 @@
         <h4 class="modal-title">Your Basket</h4>
       </div>
       <div class="modal-body" >
+        <div ng-if="checkoutList.length < 1"> <h1>Your Cart is Empty</h1></div>
         <div class="row" ng-repeat="product in checkoutList track by $index">
           <div class="col-md-5">
             <img class="modal_img" ng-src="{{product.img_path}}">

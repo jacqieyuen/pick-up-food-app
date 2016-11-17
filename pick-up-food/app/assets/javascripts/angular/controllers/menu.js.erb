@@ -1,61 +1,17 @@
 app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', function($scope, $http, $auth, UserService, $localStorage){
   $scope.message = "Menu Page";
 
-  // console.log($scope.user);
-  // console.log($scope.user.loggedin);
-  // console.log($auth.validateUser().$$state.value);
-  // console.log($auth.validateUser().$$state.value.signedIn == true);
-
-  // $scope.initCheckoutList = function () {
-  //   $scope.checkoutList = [];
-  //   $scope.checkoutList = $localStorage.checkoutList
-  //   if (!$scope.checkoutList){
-  //     $scope.checkoutList=[]
-  //   }else {
-  //     $scope.expirationTime = localStorage.expirationTime;
-  //     // console.log($scope.expirationTime);
-  //     $scope.currentTime = new Date();
-  //     $scope.currentHour = $scope.currentTime.getTime();
-  //     console.log($scope.expirationTime - $scope.currentHour)
-  //     console.log($scope.checkoutList);
-  //     if ($scope.expirationTime < $scope.currentHour){
-  //       $localStorage.$reset();
-  //       $scope.checkoutList = [];
-  //     };
-  //   }
-  // };
-
-  // $scope.initCheckoutList();
-
-  var url = "<%= ENV['URL'] %>" || "http://localhost:3000";
+  var url = "http://localhost:3000";
 
   $http.get(url + '/api/categories').success(function(response){
-    console.log(response);
+    // console.log(response);
     $scope.categories = response;
   });
 
   $http.get(url + '/api/products').success(function(response){
     $scope.products = response;
-    console.log($scope.products);
+    // console.log($scope.products);
   });
-
-
-  // $scope.saveCheckoutList = function () {
-  //   $localStorage.checkoutList = $scope.checkoutList;
-
-  //   $scope.currentTime = new Date();
-  //   $scope.currentHour = $scope.currentTime.getTime();
-  //   $scope.expirationTime = $scope.currentHour + (3*60*60*1000);
-  //   localStorage.expirationTime = $scope.expirationTime;
-  // }
-
-  // $scope.checkoutTotal = function () {
-  //   var total = 0;
-  //   for (var i = 0; i < $scope.checkoutList.length; i++){
-  //     total += $scope.checkoutList[i].price
-  //   }
-  //   return total;
-  // }
 
   $scope.addToCheckout = function(add_id) {
     $scope.result = $scope.products.filter(function(obj){
@@ -63,17 +19,8 @@ app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localSt
     })[0];
     $scope.checkoutList.push($scope.result);
 
-    // console.log($scope.result);
-    console.log("adding this item to basket")
+    console.log("adding this item below to basket")
     console.log($scope.result);
   }
-
-  // $scope.deleteItem = function($index){
-  //   $scope.deletedItem = $scope.checkoutList.splice($index, 1);
-  //   console.log("item that was deleted")
-  //   console.log($scope.deletedItem)
-  //   console.log("items left in checkoutList")
-  //   console.log($scope.checkoutList)
-  // }
 
 }]);
