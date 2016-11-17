@@ -1,7 +1,7 @@
 'use strict';
 
 // var app = angular.module('appName', ['oneDependency']);
-var app = angular.module('pick_up_food', ['ui.router', 'ui.bootstrap', 'ng-token-auth', 'ngStorage']);
+var app = angular.module('pick_up_food', ['ui.router', 'ui.bootstrap', 'ng-token-auth', 'ngStorage', 'sticky']);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', 'URL_CONSTANTS', function($stateProvider, $urlRouterProvider, $authProvider, URL_CONSTANTS) {
   $urlRouterProvider.otherwise('/');

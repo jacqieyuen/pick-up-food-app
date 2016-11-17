@@ -1,5 +1,22 @@
-app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', 'URL_CONSTANTS', function($scope, $http, $auth, UserService, $localStorage, URL_CONSTANTS){
+app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', 'URL_CONSTANTS', '$anchorScroll', '$location',function($scope, $http, $auth, UserService, $localStorage, URL_CONSTANTS, $anchorScroll, $location){
+  $anchorScroll.yOffset = 50;
+
+   $scope.gotoAnchor = function(x) {
+      var newHash = 'anchor' + x;
+      if ($location.hash() !== newHash) {
+        // set the $location.hash to `newHash` and
+        // $anchorScroll will automatically scroll to it
+        $location.hash(x);
+      } else {
+        // call $anchorScroll() explicitly,
+        // since $location.hash hasn't changed
+        $anchorScroll();
+      }
+    };
+
+
   $scope.message = "Menu Page";
+
 
   var url = URL_CONSTANTS.domain;
 

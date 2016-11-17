@@ -8,12 +8,14 @@
     <div style=" background-color: red; margin: 0 auto;"></div>
       <h1 style="text-align: center; color: white;">M E N U</h1>
     </div>
+
+
   <div class="container-fluid" style="padding: 0; margin: 0">
-    <nav id="navbarmenu" class="navbar navbar-inverse" style="text-align: center;">
+    <nav id="navbarmenu" class="navbar navbar-inverse" style="text-align: center;" sticky offset="55">
       <div class="container-fluid" style="display: inline-block; text-align: center;">
         <div class="navbar-header">
           <ul class="nav navbar-nav">
-            <li ng-repeat="category in categories" ><a href='' style="color: white;">{{ category.name }}</a></li>
+            <li ng-repeat="category in categories" ><a href='' ng-click="gotoAnchor(category.name)">{{ category.name }}</a></li>
           </ul>
         </div>
       </div>
