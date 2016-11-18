@@ -2,13 +2,21 @@
 
   <div id="menuBannerContainer">
     <img src="http://www.ilovehongkong.hk/sites/www.ilovehongkong.hk/files/styles/home_hero_bs/public/iw1_pic1_53.jpg?itok=J6NXoYHW" id="menuBannerImg">
-    <div style=" background-color: red; margin: 0 auto;"></div>
-      <h1 style="text-align: center; color: white;">M E N U</h1>
-    </div>
+    <nav id="transparentNavbarmenu" class="navbar navbar-default navbar-fixed-bottom text-center" ng-if="menuScroll == false">
+
+      <div class="container-fluid" style="display: inline-block; text-align: center;">
+        <div class="navbar-header">
+          <ul class="nav navbar-nav">
+            <li ng-repeat="category in categories"><a href='' ng-click="gotoAnchor(category.name)">{{ category.name }}</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
 
 
   <div class="container-fluid" style="padding: 0; margin: 0">
-    <nav id="navbarmenu" class="navbar navbar-inverse" style="text-align: center;" sticky offset="55">
+    <nav id="solidNavbarmenu" class="navbar navbar text-center"  sticky offset="49" ng-if="menuScroll == true">
       <div class="container-fluid" style="display: inline-block; text-align: center;">
         <div class="navbar-header">
           <ul class="nav navbar-nav">
@@ -21,9 +29,9 @@
       <button type="button" class="btn btn-info btn-lg pull-right" data-toggle="modal" data-target="#myModal">Basket</button>
       <h1> {{ message }} </h1>
     </div> -->
-    <div class="row" ng-repeat="category in categories" style="margin: 5%;">
+    <div class="row" ng-repeat="category in categories" style="margin: 2% 5%;">
       <div>
-        <h2 class="categorySeperator" id="{{ category.name }}" style="color: white; margin-bottom: 3%;">{{ category.name }}</h2>
+        <h2 class="categorySeperator" id="{{ category.name }}" style=" margin-bottom: 1%;">{{ category.name }}</h2>
 
         <div class="col-sm-6 col-md-4" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
           <div class="thumbnail">

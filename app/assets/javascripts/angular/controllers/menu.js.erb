@@ -1,5 +1,18 @@
-app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', 'URL_CONSTANTS', '$anchorScroll', '$location',function($scope, $http, $auth, UserService, $localStorage, URL_CONSTANTS, $anchorScroll, $location){
+app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', 'URL_CONSTANTS', '$anchorScroll', '$location', '$window', '$document',function($scope, $http, $auth, UserService, $localStorage, URL_CONSTANTS, $anchorScroll, $location, $window, $document){
+
   $anchorScroll.yOffset = 140;
+
+  $scope.menuScroll=false
+  $document.on('scroll', function() {
+    // do your things like logging the Y-axis
+
+    if ($window.scrollY > (window.innerHeight)*.15){
+      $scope.menuScroll = true
+    }else {
+      $scope.menuScroll = false;
+    }
+    $scope.$apply();
+  });
 
    $scope.gotoAnchor = function(x) {
       var newHash = 'anchor' + x;

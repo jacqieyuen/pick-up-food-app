@@ -1,80 +1,135 @@
-<div ng-hide="ordersummary">
-  <nav class="navbar navbar-default navbar-fixed-top">
+<div id="checkoutOrderSummary">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" class="solidNavBar">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <a href="/#/menu" class="navbar-brand">M E N U</a>
-        <a href="/" class="navbar-brand">Home</a>
-      </div>
+      <a href="/" class="navbar-brand" ><span>s i m p l y l i f e</span></a>
+      <a href="/#/menu" class="navbar-brand">M E N U</a>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+            <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>
+              <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            <li ng-hide="user.loggedin"><a href="/#/login" >Log In</a></li>
+            <li ng-hide="user.loggedin"><a href="/#/signup">Sign Up</a></li>
+            <li ng-show="user.loggedin"><a href="" >Profile</a></li>
+            <li ng-show="user.loggedin"><a href="" ng-click="logout()" >Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </nav>
 
 
-  <div class="container" style="padding-top: 65px;">
+  <div ng-hide="ordersummary">
+    <div class="container-fluid" id="checkoutContainer" style="padding-top: 65px;">
 
-    <div class="row">
-      <h1> {{ message }} </h1>
-    </div>
-
-    <div class="row" ng-repeat="product in checkoutList track by $index">
-      <div class="col-md-5">
-        <img class="modal_img" ng-src="{{product.img_path}}">
+      <div class="row text-center" id="checkoutTitle">
+        <h1> {{ message }} </h1>
       </div>
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-6">
-          <h4>{{ product.name }}</h4>
+
+      <div class="col-md-6" >
+        <div id="foodCol">
+          <div class="row tableTitle">
+            <div class="col-md-9 "><strong>Product</strong></div>
+            <div class="col-md-2 "><strong>Price</strong></div>
+            <div class="col-md-1 "><strong>Delete</strong></div>
           </div>
-          <div class="col-md-6">
-            <h4>${{ product.price }}</h4>
+          <hr class="checkoutLine">
+          <div class="row checkoutRow" ng-repeat="product in checkoutList track by $index">
+            <div class="col-md-4">
+              <img class="checkoutImg" ng-src="{{product.img_path}}">
+            </div>
+            <div class="col-md-7">
+              <div class="row">
+                <div class="col-md-8">
+                <h5>{{ product.name }}</h5>
+                </div>
+                <div class="col-md-4">
+                  <h5>${{ product.price }}.00</h5>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <button ng-click="deleteItem($index)"><strong>X</strong></button>
+            </div>
+          </div>
+          <div class="row">
+            <hr class="checkoutLine">
+            <div class="clearfix orderTotal">
+              <div class="pull-left">Order Total:</div>
+              <div class="pull-right">${{ checkoutTotal() }}.00</div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-1">
-        <button ng-click="deleteItem($index)"><strong>X</strong></button>
+      <div class="col-md-6">
+        <div id="paymentCol">
+          <div class="row pickTime">
+            <h3><label>Pick A Time:
+              <select ng-model="pickedTime" ng-options="time for time in timesArray" ng-change="showSelectedTime()"  ng-style="{'width': 200 +'px'}"></select>
+            </label></h3>
+          </div>
+          <div class="row" id="paypalDiv">
+            <form id="checkout" >
+              <div id="dropin-container" ></div>
+              <input type="submit" value="Checkout: {{ checkoutTotal() }}">
+            </form>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="clearfix">
-        <div class="pull-left">Total: {{ checkoutTotal() }}</div>
-        <!-- <a href="/#/checkout"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a> -->
-      </div>
-    </div>
-    <div class="row pickTime">
-      <label>Pick A Time:
-        <select ng-model="pickedTime" ng-options="time for time in timesArray" ng-change="showSelectedTime()"></select>
-      </label>
-    </div>
-    <div class="row">
-      <form id="checkout">
-        <div id="dropin-container"></div>
-        <input type="submit" value="Pay {{ checkoutTotal() }}">
-      </form>
+
+
+
     </div>
 
   </div>
 
-</div>
 
-<div class="container" ng-show="ordersummary">
-  <div class="row">
-    <a href="/#/menu"><button type="button" class="btn btn-info btn-lg pull-right" >Menu</button></a>
-    <h1>Order Summary</h1>
-  </div>
 
-  <div class="row">
-    <h4>{{ localTime() }} </h4>
-    <h4>{{ orderOrder.pickup_code }} </h4>
-    <h4>{{ checkoutTotal() }}</h4>
-    <div ng-repeat="orderproduct in orderOrderProducts">
-      <div ng-repeat="(key, value) in orderproduct " ng-if="key == 'product'">
-        <h1 >
-          {{ value.name }}
-        </h1>
-        <img ng-src="{{ value.img_path }}">
-        <ul>
-          <li>{{ value.price }}</li>
-        </ul>
+
+  <div class="container" ng-show="ordersummary" style="padding-top: 65px;">
+    <div class="row">
+      <a href="/#/menu"><button type="button" class="btn btn-info btn-lg pull-right" >Menu</button></a>
+      <h1>Order Summary</h1>
+    </div>
+
+    <div class="row">
+      <div id="orderSummaryDetails">
+        <h5><strong>Pick Up Time: </strong> {{ localTime() }} </h5>
+        <h5><strong>Pick Up Code: </strong>{{orderId}}-{{ orderOrder.pickup_code }} </h5>
       </div>
+
+      <div id="foodCol">
+          <div class="row tableTitle">
+            <div class="col-md-9 "><strong>Product</strong></div>
+            <div class="col-md-3 "><strong>Price</strong></div>
+          </div>
+          <hr class="checkoutLine">
+          <div class="row checkoutRow" ng-repeat="orderproduct in orderOrderProducts">
+            <div ng-repeat="(key, value) in orderproduct " ng-if="key == 'product'">
+            <div class="col-md-4">
+              <img class="checkoutImg" ng-src="{{ value.img_path }}">
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-8">
+                <h5>{{ value.name }}</h5>
+                </div>
+                <div class="col-md-4">
+                  <h5>${{ value.price }}.00</h5>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="clearfix orderTotal">
+              <div class="pull-left">Order Total:</div>
+              <div class="pull-right">${{ checkoutTotal() }}.00</div>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>

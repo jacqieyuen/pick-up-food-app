@@ -1,4 +1,22 @@
-app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', 'UserService', '$localStorage', function($scope, $auth, $rootScope, UserService, $localStorage){
+app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', 'UserService', '$localStorage', '$window', '$document', function($scope, $auth, $rootScope, UserService, $localStorage, $window, $document){
+
+$scope.transparentNav = true
+$document.on('scroll', function() {
+  // do your things like logging the Y-axis
+
+  if ($window.scrollY > (window.innerHeight)*.82){
+    console.log($window.scrollY)
+    $scope.transparentNav = false
+    console.log("larger than 380 " +$scope.transparentNav)
+
+  }else {
+    $scope.transparentNav = true;
+    console.log($window.scrollY)
+    console.log("smaller than 380 "+$scope.transparentNav)
+
+  }
+  $scope.$apply();
+});
 
   $scope.user = UserService.user;
   // console.log(($scope.user).loggedin)

@@ -1,9 +1,9 @@
 <div id="mainHeader">
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="mainNavBar">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="transparentNavBar" ng-show="transparentNav == true">
       <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <a href="/#/menu"><div class="navbar-brand navbar-brand-centered" id="menuNav">M E N U</div></a>
+        <a href="/#/menu"><div class="navbar-brand navbar-brand-centered headerMenuLink">M E N U</div></a>
       </div>
         <!-- <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-brand-centered">
           <span class="sr-only">Toggle navigation</span>
@@ -35,10 +35,41 @@
               </ul>
             </li>
         </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+      </div>
+    </div>
   </nav>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" class="solidNavBar" ng-show="transparentNav == false">
+      <div class="container-fluid">
 
+      <div class="navbar-header">
+        <a href="/#/menu"><div class="navbar-brand navbar-brand-centered">M E N U</div></a>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar-brand-centered">
+        <ul class="nav navbar-nav">
+          <a href="/" class="navbar-brand" ><span>s i m p l y l i f e</span></a>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+           <li>
+              <a href="" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li class="dropdown">
+              <a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li ng-hide="user.loggedin"><a href="/#/login" >Log In</a></li>
+                <li ng-hide="user.loggedin"><a href="/#/signup">Sign Up</a></li>
+                <li ng-show="user.loggedin"><a href="" >Profile</a></li>
+                <li ng-show="user.loggedin"><a href="" ng-click="logout()" >Log Out</a></li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
   <div ui-view></div>
 
   <!-- Modal -->
@@ -52,35 +83,47 @@
           <h4 class="modal-title">Your Basket</h4>
         </div>
         <div class="modal-body" >
-          <div ng-if="checkoutList.length < 1"> <h1>Your Cart is Empty</h1></div>
-          <div class="row" ng-repeat="product in checkoutList track by $index">
-            <div class="col-md-5">
-              <img class="modal_img" ng-src="{{product.img_path}}">
+          <div ng-if="checkoutList.length < 1"> <h1>Cart is Empty</h1></div>
+           <div class="row modalTableTitle" ng-if="checkoutList.length >= 1">
+            <div class="col-md-8 "><strong>Product</strong></div>
+            <div class="col-md-3 "><strong>Price</strong></div>
+            <div class="col-md-1 "><strong>Delete</strong></div>
+          </div>
+          <div class="row modalRow" ng-repeat="product in checkoutList track by $index">
+            <div class="col-md-3">
+              <img class="modalImg" ng-src="{{product.img_path}}">
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
               <div class="row">
-                <div class="col-md-6">
-                <h4>{{ product.name }}</h4>
+                <div class="col-md-8">
+                <h5>{{ product.name }}</h5>
                 </div>
-                <div class="col-md-6">
-                  <h4>${{ product.price }}</h4>
+                <div class="col-md-4">
+                  <h5>${{ product.price }}.00</h5>
                 </div>
               </div>
             </div>
             <div class="col-md-1">
               <button ng-click="deleteItem($index)"><strong>X</strong></button>
             </div>
-          </div>
 
         </div>
 
         <div class="modal-footer">
           <div class="clearfix">
-            <div class="pull-left">Total: {{ checkoutTotal() }}</div>
-            <a href="/#/login"  ng-hide="user.loggedin"><button class="btn btn-primary">Log In</button></a>
-            <a href="/#/signup" ng-hide="user.loggedin"><button class="btn btn-primary">Sign Up</button></a>
-            <a href="/#/checkout" ng-show="user.loggedin" ng-if="checkoutList.length >= 1"><button class="btn btn-primary pull-right" ng-click="saveCheckoutList()">Checkout</button></a>
-            <a href="/#/menu" ng-if="checkoutList.length < 1"><button class="btn btn-primary" ng-click="saveCheckoutList()">Add Something To Your Cart :)</button></a>
+            <div class="row">
+              <div class="clearfix orderTotal">
+                <div class="pull-left">Order Total:</div>
+                <div class="pull-right">${{ checkoutTotal() }}.00</div>
+              </div>
+            </div>
+            <div class="text-center">
+              <a href="/#/login"  ng-hide="user.loggedin"><button class="btn btn-primary modalButtons">Log In</button></a>
+              <a href="/#/signup" ng-hide="user.loggedin"><button class="btn btn-primary modalButtons">Sign Up</button></a>
+              <a href="/#/checkout" ng-show="user.loggedin" ng-if="checkoutList.length >= 1"><button class="btn btn-primary modalButtons" ng-click="saveCheckoutList()">Checkout</button></a>
+              <a href="/#/menu" ng-if="checkoutList.length < 1"><button class="btn btn-primary modalButtons" ng-click="saveCheckoutList()">Add Something To Your Cart :)</button></a>
+            </div>
+
           </div>
         </div>
       </div>

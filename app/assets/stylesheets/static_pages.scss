@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+//header page >> abstract
 #mainHeader {
   font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 
@@ -16,37 +18,57 @@
   .navbar>.container-fluid .navbar-brand-centered {
       margin-left: -80px;
   }
-  #mainNavBar {
-    border-width: 0px;
-    -webkit-box-shadow: 0px 0px;
-    box-shadow: 0px 0px;
-    background-color: rgba(0,0,0,0.0);
-    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
-    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
-    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
+  #transparentNavBar {
+    height:50px;
+    background-color: rgba(0,0,0,0);
     border-bottom-width: 1px;
     border-color: rgba(255,255,255, 0.3);
+
     span {
       color: white;
       font-size: 20px;
     }
   }
-  #menuNav {
+  .solidNavBar {
+    height:50px;
+    background-color: rgb(255,255,255);
+    border-color: rgb(255,255,255);
+  }
+  .headerMenuLink {
     color: white;
     font-size: 160%;
   }
+  .modalRow {
+    margin: 10px 10px;
+  }
+  .modalImg {
+    width: 80px;
+    max-height: 50px;
+  }
+
+  .modalButtons {
+    margin-top: 20px;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .modalTableTitle{
+    margin: 10px 25px 0px 13px;
+  }
 }
+
+//index >> static
   #homeContainer {
     overflow: hidden;
 
     padding: 0;
-    height: 95vh;
+    height: 100vh;
     #homeBackground {
-      width: 105%;
-      height: auto;
+      width: auto;
+      height: 100vh;
       position:relative;
       opacity: 0.9;
-      filter: brightness(48%);
+      filter: brightness(44%);
     }
     #homeWelcome {
       float: center;
@@ -55,57 +77,72 @@
       top: 25%;
       z-index: 1000;
     }
+    #homeCallToAction {
+      color: white;
+      border: solid white 2px;
+      height: 40px;
+      width: 210px;
+      float: center;
+      position: absolute;
+      left: 75.5vh;
+      top: 85vh;
+      background-color: rgba(0,0,0,0.2)
+    }
   }
 
+// menu >> customer
   #menuBannerContainer {
     overflow: hidden;
     padding: 0;
-    height: 95vh;
-    // background-repeat: no-repeat;
-    // background-color: rgba(0,0,255,0.3);
-    // background-position: center bottom;width: 100%;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
+    height: 100vh;
     #menuBannerImg {
       margin-top: -120px;
-      width: 105%;
+      width: 110%;
       height: auto;
       position:relative;
       opacity: 0.9;
-      filter: brightness(54%);
+      filter: brightness(56%);
     }
-    // #homeWelcome {
-    //   float: center;
-    //   position: absolute;
-    //   left: 30%;
-    //   top: 25%;
-    //   z-index: 1000;
-    // }
+    #transparentNavbarmenu {
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+      background-color: rgba(0,0,0,0);
+      border-radius: 0;
+      border: 0;
+      a {
+        color: white;
+        font-size: 1em;
+        font-family: Helvetica, sans-serif;
+        font-weight: lighter;
+        margin: 0 20px;
+        text-transform: uppercase;
+      }
+    }
   }
-
-// html{
-//   background-image: url("http://www.landmark.hk/en/~/media/images/landmark/shopping/shopdetail/slider/simplylife_1.jpg");
-//   background-repeat: no-repeat;
-//   background-attachment: fixed;
-//   background-position: center;
-//   background-size: 100% 100%;
-// }
-
-// body {
-//   background:rgba(255,255,255,0.5);
-//   background-size: 100% 100%;
-// }
-/* CATEGORY SEPERATOR */
-
+  #solidNavbarmenu {
+    text-align: center;
+    border-color: rgba(0,0,0,0.1);
+    border-radius: 0;
+    background-color: rgba(225,225,225,225);
+    a {
+      color: gray;
+      font-size: 1em;
+      font-family: Helvetica, sans-serif;
+      font-weight: lighter;
+      margin: 0 20px;
+      text-transform: uppercase;
+    }
+  }
+// // // CATEGORY SEPERATOR
 .categorySeperator {
   text-align: center;
 }
 
-/* THUMBNAIL */
-
+// // THUMBNAIL
 .thumbnail {
   padding: 0;
+  border-radius: 0;
 }
 
 .thumbnail img {
@@ -113,15 +150,68 @@
   width: 100%;
 }
 
-.modal_img {
-  height: 60px;
+
+//checkout >> customer
+#checkoutOrderSummary {
+  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+  #checkoutContainer {
+    margin: 0 auto;
+
+  }
+  #checkoutTitle {
+    margin-bottom: 10px;
+  }
+  #paymentCol {
+    padding-left: 40px;
+    padding-bottom: 10px;
+    border: solid gray 1px;
+    border-radius: 10px;
+
+  }
+  #foodCol {
+    // padding-right: 40px;
+    border: solid gray 1px;
+    border-radius: 10px;
+    padding-top: 10px;
+    .tableTitle{
+      margin: 10px 25px 0px 30px;
+    }
+    .orderTotal {
+      margin: 0 50px 10px 50px;
+    }
+
+  }
+
+  .checkoutLine {
+    margin: 15px 25px
+  }
+  .checkoutRow {
+    margin-bottom: 13px;
+    margin-right: 5px;
+    margin-left: 5px;
+
+    .checkoutImg {
+      display: table;
+      margin: 0 auto;
+      width: 130px;
+      max-height: 100px;
+    }
+  }
+  #paypalDiv {
+    margin-right: 30px;
+  }
 }
 
-// .thumbnail .description {
-//   color: #7f7f7f;
-// }
 
-// .price {
-//   font-weight: bold;
-//   font-size: 16px;
-// }
+
+
+
+
+#orderSummaryDetails {
+  display: table;
+  margin: 0 auto;
+}
+
+.caption > h3 {
+  height: 50px;
+}
