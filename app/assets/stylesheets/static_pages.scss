@@ -32,7 +32,7 @@
   #solidNavBar {
     height:50px;
     background-color: rgb(255,255,255);
-    border-color: rgb(255,255,255);
+    border-color: rgba(1,1,1,0.5);
   }
   .headerMenuLink {
     color: white;
@@ -52,7 +52,7 @@
   }
 
   .modalDeleteButton:hover {
-    opacity: 1;
+    opacity: 0.1;
   }
 
   .modalButtons {
@@ -133,6 +133,10 @@
       background-color: rgba(0,0,0,0);
       border-radius: 0;
       border: 0;
+      #innerTransparentNavbarmenu {
+        display: inline-block;
+        text-align: center;
+      }
       a {
         color: white;
         font-size: 1em;
@@ -144,6 +148,8 @@
     }
   }
   #solidNavbarmenu {
+    // margin: 0;
+    // padding: 0;
     text-align: center;
     border-color: rgba(0,0,0,0.1);
     border-radius: 0;
@@ -159,24 +165,39 @@
   }
   #menuMain {
     background-color:rgb(248,248,246);
+    padding: 0;
+    margin: 0;
   }
 // // // CATEGORY SEPERATOR
 .categorySeperator {
+  margin: 0;
+  padding: 0 1%;
+}
+
+.innerCategorySeperator {
   font-family: Helvetica, sans-serif;
   font-weight: lighter;
   text-align: center;
 }
 
 // // THUMBNAIL
+.thumbnailOutter {
+  margin-bottom: 10%;
+}
+
 .thumbnail {
-  padding: 0;
   border-radius: 7px;
   border: 0;
   overflow: hidden;
+  padding: 0;
 }
 
-.thumbnail img {
-  height: 30%;
+.thumbnail:hover {
+    box-shadow: 0 0 0 1px gray;
+}
+
+.thumbnailImg > img {
+  min-height: 30%;
   width: 100%;
 }
 .caption {
@@ -194,7 +215,7 @@
   font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
   #checkoutContainer {
     margin: 0 auto;
-
+    padding-top: 65px;
   }
   #checkoutTitle {
     margin-bottom: 10px;
@@ -238,6 +259,10 @@
   #paypalDiv {
     margin-right: 30px;
   }
+}
+
+#orderSummaryContainer {
+  padding-top: 65px;
 }
 
 #orderSummaryDetails {

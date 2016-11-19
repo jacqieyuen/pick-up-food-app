@@ -22,7 +22,7 @@
 
 
   <div ng-hide="ordersummary">
-    <div class="container-fluid" id="checkoutContainer" style="padding-top: 65px;">
+    <div class="container-fluid" id="checkoutContainer">
 
       <div class="row text-center" id="checkoutTitle">
         <h1> {{ message }} </h1>
@@ -88,7 +88,7 @@
 
 
 
-  <div class="container" ng-show="ordersummary" style="padding-top: 65px;">
+  <div class="container-fluid" id="orderSummaryContainer" ng-show="ordersummary">
     <div class="row">
       <a href="/#/menu"><button type="button" class="btn btn-info btn-lg pull-right" >Menu</button></a>
       <h1>Order Summary</h1>
