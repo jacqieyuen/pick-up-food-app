@@ -202,11 +202,6 @@
   }
 }
 
-
-
-
-
-
 #orderSummaryDetails {
   display: table;
   margin: 0 auto;
@@ -214,4 +209,38 @@
 
 .caption > h3 {
   height: 50px;
+}
+
+//order dashboard >> restaurant
+
+
+#innerIncomingOrders {
+  border: solid gray 2px;
+  padding: 10px 20px;
+}
+
+.perIncomingOrder {
+  border: solid gray 2px;
+  margin: 5px 0;
+
+}
+
+#innerPreparingOrderBox {
+  border: solid gray 2px;
+  padding: 10px 20px;
+}
+
+.perPreparingOrder {
+  border: solid gray 2px;
+  margin: 5px 0;
+}
+
+#innerFinishedOrderBox {
+  border: solid gray 2px;
+  padding: 10px 20px;
+}
+
+.perFinishedOrder {
+  border: solid gray 2px;
+  margin: 5px 0;
 }

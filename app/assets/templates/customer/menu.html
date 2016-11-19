@@ -33,7 +33,7 @@
       <div>
         <h2 class="categorySeperator" id="{{ category.name }}" style=" margin-bottom: 1%;">{{ category.name }}</h2>
 
-        <div class="col-sm-6 col-md-4" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
+        <div class="col-sm-6 col-md-3" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
           <div class="thumbnail">
             <img ng-src="{{product.img_path}}">
             <div class="caption">
