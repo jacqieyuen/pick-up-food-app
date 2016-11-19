@@ -212,35 +212,31 @@
 }
 
 //order dashboard >> restaurant
+#orderDashboardContainer {
+  max-height: 100vh;
+  overflow: hidden;
 
+  nav > div {
+    display: inline-block;
+    text-align: center;
+  }
+  .perIncomingOrder, .perPreparingOrder, .perFinishedOrder, .perPickedUpOrder {
+    border: solid gray 2px;
+    margin: 5px 0;
+  }
 
-#innerIncomingOrders {
-  border: solid gray 2px;
-  padding: 10px 20px;
+  .perSearchResult {
+    border: solid gray 2px;
+    margin: 5px 0;
+    padding: 0 20px;
+  }
+
+  #innerIncomingOrders, #innerPreparingOrderBox, .innerFinishedOrderBox, #innerPickUpSearchBox, #innerPickedUpBox{
+    border: solid gray 2px;
+    padding: 10px 20px;
+    max-height: 85vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
 }
 
-.perIncomingOrder {
-  border: solid gray 2px;
-  margin: 5px 0;
-
-}
-
-#innerPreparingOrderBox {
-  border: solid gray 2px;
-  padding: 10px 20px;
-}
-
-.perPreparingOrder {
-  border: solid gray 2px;
-  margin: 5px 0;
-}
-
-#innerFinishedOrderBox {
-  border: solid gray 2px;
-  padding: 10px 20px;
-}
-
-.perFinishedOrder {
-  border: solid gray 2px;
-  margin: 5px 0;
-}

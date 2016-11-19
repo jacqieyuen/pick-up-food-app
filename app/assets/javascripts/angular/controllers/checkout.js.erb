@@ -1,21 +1,12 @@
 app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', 'URL_CONSTANTS', function($scope, $http, $location, UserService, $localStorage, URL_CONSTANTS){
+
   $scope.message = "Checkout Page"
   $scope.userData = UserService.user
-  // console.log($scope.userData.id)
   $scope.checkoutList = $localStorage.checkoutList;
   $scope.ordersummary = false
-  // console.log($scope.checkoutList);
-
-  // console.log($scope.checkoutList[0])
-
-  // console.log($scope.checkoutList[0].id)
 
   $scope.deleteItem = function($index){
     $scope.deletedItem = $scope.checkoutList.splice($index, 1);
-    // console.log("item that was deleted")
-    // console.log($scope.deletedItem)
-    // console.log("items left in checkoutList")
-    // console.log($scope.checkoutList)
   };
 
 
@@ -28,28 +19,32 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
     return $scope.total;
   }
 
-  $http.get(URL_CONSTANTS.domain + '/api/transactions/get_client_token').success(function(response){
-    $scope.clientToken = response.key
-    // console.log($scope.clientToken);
-    // console.log(($scope.total).toString());
-    braintree.setup($scope.clientToken, 'dropin', {
-      container: 'dropin-container',
-      paymentMethodNonceReceived: function (event, nonce) {
-        $scope.data = {
-          amount: ($scope.total).toString(),
-          payment_method_nonce: nonce
-        };
-        // console.log(nonce)
-        // console.log(($scope.total).toString())
-        $http.post(URL_CONSTANTS.domain + '/api/transactions', $scope.data).then(function (resp){
-          console.log(resp);
-          $scope.createOrder();
-        }, function (resp){
-          console.log(resp)
-        });
-      }
+  $scope.braintreeForm = function () {
+    $http.get(URL_CONSTANTS.domain + '/api/transactions/get_client_token').success(function(response){
+      $scope.clientToken = response.key
+      // console.log($scope.clientToken);
+      // console.log(($scope.total).toString());
+      braintree.setup($scope.clientToken, 'dropin', {
+        container: 'dropin-container',
+        paymentMethodNonceReceived: function (event, nonce) {
+          $scope.data = {
+            amount: ($scope.total).toString(),
+            payment_method_nonce: nonce
+          };
+          // console.log(nonce)
+          // console.log(($scope.total).toString())
+          $http.post(URL_CONSTANTS.domain + '/api/transactions', $scope.data).then(function (resp){
+            console.log(resp);
+            $scope.createOrder();
+          }, function (resp){
+            console.log(resp)
+          });
+        }
+      });
     });
-  });
+  } //close braintreeForm
+
+  $scope.braintreeForm();
 
   $scope.createOrder = function() {
     $scope.createOrderData = {
@@ -62,11 +57,9 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       products: $scope.checkoutList
     };
     $http.post(URL_CONSTANTS.domain + '/api/orders', $scope.createOrderData).then(function successCallback (resp){
-      // console.log(resp.data);
       console.log(resp.data.id);
       $scope.orderId = resp.data.id;
       $scope.getOrderDetails($scope.orderId);
-      // window.location = "/#/order_summary";
       $localStorage.$reset();
 
     }, function errorCallback (resp){
@@ -77,13 +70,9 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
   $scope.getOrderDetails = function (id){
     console.log("get order details")
     $http.get(URL_CONSTANTS.domain + '/api/order/products/'+id).then(function successCallback (resp){
-      console.log(resp.data.user)
       $scope.orderUser = resp.data.user
-      console.log(resp.data.order)
       $scope.orderOrder = resp.data.order
       $scope.orderPickUpTime = resp.data.order.pick_up_time
-
-      console.log(resp.data.order_products)
       $scope.orderOrderProducts = resp.data.order_products
       $scope.ordersummary = true
 
@@ -99,7 +88,6 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
 
   $scope.createTimes = function () {
     $scope.timesArray = []
-    // [{name:1},{name:2},{name:3}]
     var flag = false;
 
     var currentTime = new Date();
@@ -122,62 +110,37 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
     var minuteRounded = (minutePlus15(round5(currentMinute), currentHour)).minute;
 
     currentHour = (minutePlus15(round5(currentMinute), currentHour)).hour;
-    // console.log(minuteRounded)
-    // console.log("this is the heehafhkj " +currentHour);
-
     function listOfTimes(){
-      // if (minuteRounded = 0){
-      //   flag = true
-      // };
-
       if(currentHour>=6){
         for(currentHour; currentHour<=19; currentHour++){
-          // console.log("the hour is "+currentHour);
           if(flag){
             minuteRounded=0;
           };
           for(minuteRounded; minuteRounded<=55; minuteRounded = minuteRounded+5){
-            // console.log("running");
             var Minute = 0
             if (minuteRounded<=6){
               Minute = "0"+minuteRounded;
             }else{
               Minute = minuteRounded};
             var availableTime = currentHour+":"+Minute;
-            // console.log("time available is "+currentHour+":"+Minute);
             $scope.timesArray.push(availableTime);
             flag = true;
 
           };
         };
       }
-            // $scope.timesArray.push("11:33");
-
-      // else{alert("We are open between 7am-9pm. You may start placing orders at 6am and last order is at 7:55pm")}
     }
     listOfTimes();
     console.log("generating times LOOOOOOOKLOOK!");
   };
   $scope.createTimes();
   $scope.showSelectedTime = function () {
-    // console.log(parseInt($scope.pickedTime.slice(0,$scope.pickedTime.indexOf(":"))));
     $scope.hourOfPickUp = parseInt($scope.pickedTime.slice(0,$scope.pickedTime.indexOf(":")))
-    // console.log($scope.pickedTime.slice($scope.pickedTime.indexOf(":")+1));
     $scope.minuteOfPickUp = parseInt($scope.pickedTime.slice($scope.pickedTime.indexOf(":")+1))
-    // console.log($scope.pickedTime);
     $scope.currentDate = new Date();
-    // console.log($scope.currentDate)
-
-    // console.log ($scope.hourOfPickUp);
-    // console.log($scope.minuteOfPickUp);
     $scope.selectedPickUpTime = new Date($scope.currentDate.setHours($scope.hourOfPickUp, $scope.minuteOfPickUp));
-    // console.log($scope.selectedPickUpTime);
-    // console.log($scope.currentDate)
-    // $scope.createTimes();
-
   };
 
-///////////////////////////////////////////////////
 
 
 }]);

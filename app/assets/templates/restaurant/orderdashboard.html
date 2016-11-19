@@ -1,6 +1,6 @@
-<div id="orderDashboardTabs">
+<div id="orderDashboardContainer">
   <nav class="navbar navbar-default navbar-fixed-top text-center">
-    <div class="container-fluid" style="display: inline-block; text-align: center;">
+    <div class="container-fluid">
       <div class="navbar-header">
         <ul class="nav navbar-nav">
           <li><a href="" ng-click="clickOrders()">Orders</a></li>
@@ -9,179 +9,198 @@
       </div>
     </div>
   </nav>
-</div>
 
-<div style="margin-top: 80px;">
-  <div class="container-fluid" id="recieveOrderDashboard" ng-show="orderPickupTabs">
-    <div class="row">
 
-      <div class="col-md-4" id="incomingOrdersBox">
-        <div id="innerIncomingOrders">
-          <div class="row">
-            <h1 class="text-center">Orders</h1>
+  <div style="margin-top: 80px;">
+    <div class="container-fluid" ng-show="orderPickupTabs">
+      <div class="row">
+
+        <div class="col-md-4" id="incomingOrdersBox">
+          <div id="innerIncomingOrders">
+            <div class="row">
+              <h1 class="text-center">Orders</h1>
+            </div>
+            <div class="row" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && !data.ready && !data.picked_up">
+              <div class="perIncomingOrder">
+                <div class="row" >
+                  <div class="col-md-6 text-center">
+                    {{ data.id }}
+                  </div>
+                  <div class="col-md-6 text-center">
+                    {{ localTime(data.pick_up_time) }}
+                  </div>
+                  <div class="row text-center" ng-repeat="product in data.products">
+                    <p>{{product.name}}</p>
+                  </div>
+                  <div class="row text-center">
+                    <button ng-click="startPreparing(data.id)">Start</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="row" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && !data.ready && !data.picked_up">
-            <div class="perIncomingOrder">
-              <div class="row" >
-                <div class="col-md-6 text-center">
+        </div>
+
+        <div class="col-md-4" id="preparingOrderBox">
+          <div id="innerPreparingOrderBox">
+            <div class="row">
+              <h1 class="text-center">Preparing</h1>
+            </div>
+            <div class="row" ng-repeat="data in orderDashboardData track by data.id" ng-if="data.preparing && !data.ready && !data.picked_up">
+              <div class="perPreparingOrder">
+                <div class="row" >
+                  <div class="col-md-6 text-center">
+                    {{ data.id }}
+                  </div>
+                  <div class="col-md-6 text-center">
+                    {{ localTime(data.pick_up_time) }}
+                  </div>
+                  <div class="row text-center" ng-repeat="product in data.products">
+                    <p>{{product.name}}</p>
+                  </div>
+                  <div class="row text-center">
+                    <button ng-click="foodIsReady(data.id)">Finished</button>
+                    <button ng-click="oppsNotPreparing(data.id)">Back</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4" class="finishedOrderBox">
+          <div class="innerFinishedOrderBox">
+            <div class="row">
+              <h1 class="text-center">Finished</h1>
+            </div>
+            <div class="row" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && data.ready && !data.picked_up">
+              <div class="perFinishedOrder">
+                <div class="row" >
+                  <div class="col-md-6 text-center">
                   {{ data.id }}
-                </div>
-                <div class="col-md-6 text-center">
-                  {{ data.pick_up_time }}
-                </div>
-                <div class="row text-center" ng-repeat="product in data.products">
-                  <p>{{product.name}}</p>
-                </div>
-                <div class="row text-center">
-                  <button ng-click="startPreparing(data.id)">Start</button>
+                  </div>
+                  <div class="col-md-6 text-center">
+                    {{ localTime(data.pick_up_time) }}
+                  </div>
+                  <div class="row text-center" ng-repeat="product in data.products">
+                    <p>{{product.name}}</p>
+                  </div>
+                  <div class="row text-center">
+                    <button ng-click="oppsFoodNotReady(data.id)">Back</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-4" id="preparingOrderBox">
-        <div id="innerPreparingOrderBox">
-          <div class="row">
-            <h1 class="text-center">Preparing</h1>
-          </div>
-          <div class="row" ng-repeat="data in orderDashboardData track by data.id" ng-if="data.preparing && !data.ready && !data.picked_up">
-            <div class="perPreparingOrder">
-              <div class="row" >
-                <div class="col-md-6 text-center">
-                  {{ data.id }}
-                </div>
-                <div class="col-md-6 text-center">
-                  {{ data.pick_up_time }}
-                </div>
-                <div class="row text-center" ng-repeat="product in data.products">
-                  <p>{{product.name}}</p>
-                </div>
-                <div class="row text-center">
-                  <button ng-click="foodIsReady(data.id)">Finished</button>
-                  <button ng-click="oppsNotPreparing(data.id)">Back</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4" id="finishedOrderBox">
-        <div id="innerFinishedOrderBox">
-          <div class="row">
-            <h1 class="text-center">Finished</h1>
-          </div>
-          <div class="row" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && data.ready && !data.picked_up">
-            <div class="perFinishedOrder">
-              <div class="row" >
-                <div class="col-md-6 text-center">
-                {{ data.id }}
-                </div>
-                <div class="col-md-6 text-center">
-                  {{ data.pick_up_time }}
-                </div>
-                <div class="row text-center" ng-repeat="product in data.products">
-                  <p>{{product.name}}</p>
-                </div>
-                <div class="row text-center">
-                  <button ng-click="oppsFoodNotReady(data.id)">Back</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-  <div class="container" ng-show="!orderPickupTabs">
-
-    <div class="row">
-      <div class="col-md-4">
-        <div class="row">
-          <h1 class="text-center">Input Order Code</h1>
-        </div>
-        <div class="row" style="background-color:red;">
-          <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-              <div class="input-group">
-                <input type="text" class="form-control" ng-model="searchId" placeholder="Search for...">
-                <span class="input-group-btn">
-                  <button class="btn btn-default" type="button" ng-click="search()">Go!</button>
-                </span>
-              </div>
-            </div>
-          </div>
-          <div ng-show="results">
-            <div class="row" ng-show="!searchFound">
-              <p>Search Invalid, Unable to Find Product With ID: {{ searchInputedId }} </p>
-            </div>
-            <div class="row" ng-show="searchFound">
-              <h4>{{searchResultData.id}}</h4>
-              <p ng-repeat="result in searchResultData.products"> {{result.name}} </p>
-              <div ng-if="!searchResultData.preparing && !searchResultData.ready && !searchResultData.picked_up">
-                <button ng-click="startPreparing(searchResultData.id)">Start</button>
-              </div>
-              <div ng-if="searchResultData.preparing && !searchResultData.ready && !searchResultData.picked_up">
-                <button ng-click="foodIsReady(searchResultData.id)">Finished</button>
-                <button ng-click="oppsNotPreparing(searchResultData.id)">Back</button>
-              </div>
-              <div ng-if="!searchResultData.preparing && searchResultData.ready && !searchResultData.picked_up">
-                <button ng-click="foodPickedUp(searchResultData.id)">Picked Up</button>
-              </div>
-              <div ng-if="!searchResultData.preparing && !searchResultData.ready && searchResultData.picked_up">
-                <button ng-click="oppsFoodNotPickedUp(searchResultData.id)">Food Already Picked Up (?)</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-          <h1 class="text-center">Orders Ready</h1>
-        </div>
-        <div class="row" style="background-color:red;" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && data.ready && !data.picked_up">
-          <div class="row" >
-            <div class="col-md-6 text-center" style="background-color:yellow;" >
-              {{ data.id }}
-            </div>
-            <div class="col-md-6 text-center" style="background-color:orange;" >
-              {{ data.pick_up_time }}
-            </div>
-            <div class="row text-center" style="background-color:pink;" ng-repeat="product in data.products">
-              <p>{{product.name}}</p>
-            </div>
-            <div class="row text-center">
-              <button ng-click="oppsFoodNotReady(data.id)">Back</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="row">
-          <h1 class="text-center">Picked Up</h1>
-        </div>
-        <div class="row" style="background-color:red;" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && !data.ready && data.picked_up">
-          <div class="row" >
-            <div class="col-md-6 text-center" style="background-color:yellow;" >
-              {{ data.id }}
-            </div>
-            <div class="col-md-6 text-center" style="background-color:orange;" >
-              {{ data.pick_up_time }}
-            </div>
-            <div class="row text-center" style="background-color:pink;" ng-repeat="product in data.products">
-              <p>{{product.name}}</p>
-            </div>
-            <div class="row text-center">
-              <button ng-click="oppsFoodNotPickedUp(data.id)">Back</button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
-  </div>
-</div>
+    <div class="container-fluid" ng-show="!orderPickupTabs">
+      <div class="row">
+
+        <div class="col-md-4" id="pickUpSearchBox">
+          <div id="innerPickUpSearchBox">
+            <div class="row">
+              <h1 class="text-center">Input Order Code</h1>
+            </div>
+            <div class="row">
+              <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                  <div class="input-group">
+                    <input type="text" class="form-control" ng-model="searchId" placeholder="Search for...">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button" ng-click="search()">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div ng-show="results" class="perSearchResult">
+
+                  <div class="row" ng-show="!searchFound">
+                    <p>Search Invalid, Unable to Find Product With ID: {{ searchInputedId }} </p>
+                  </div>
+
+                  <div class="row" ng-show="searchFound">
+                    <h4>{{searchResultData.id}}</h4>
+                    <h4>{{ localTime(searchResultData.pick_up_time) }}</h4>
+
+                    <p ng-repeat="result in searchResultData.products"> {{result.name}} </p>
+                    <div ng-if="!searchResultData.preparing && !searchResultData.ready && !searchResultData.picked_up">
+                      <button ng-click="startPreparing(searchResultData.id)">Start</button>
+                    </div>
+                    <div ng-if="searchResultData.preparing && !searchResultData.ready && !searchResultData.picked_up">
+                      <button ng-click="foodIsReady(searchResultData.id)">Finished</button>
+                      <button ng-click="oppsNotPreparing(searchResultData.id)">Back</button>
+                    </div>
+                    <div ng-if="!searchResultData.preparing && searchResultData.ready && !searchResultData.picked_up">
+                      <button ng-click="foodPickedUp(searchResultData.id)">Picked Up</button>
+                    </div>
+                    <div ng-if="!searchResultData.preparing && !searchResultData.ready && searchResultData.picked_up">
+                      <button ng-click="oppsFoodNotPickedUp(searchResultData.id)">Food Already Picked Up (?)</button>
+                    </div>
+                  </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-4" class="finishedOrderBox">
+          <div class="innerFinishedOrderBox">
+            <div class="row">
+              <h1 class="text-center">Finished</h1>
+            </div>
+            <div class="row" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && data.ready && !data.picked_up">
+              <div class="perFinishedOrder">
+                <div class="row" >
+                  <div class="col-md-6 text-center">
+                  {{ data.id }}
+                  </div>
+                  <div class="col-md-6 text-center">
+                    {{ localTime(data.pick_up_time) }}
+                  </div>
+                  <div class="row text-center" ng-repeat="product in data.products">
+                    <p>{{product.name}}</p>
+                  </div>
+                  <div class="row text-center">
+                    <button ng-click="oppsFoodNotReady(data.id)">Back</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- close finishedOrderBox-->
+
+        <div class="col-md-4" id="PickedUpBox">
+          <div id="innerPickedUpBox">
+            <div class="row">
+              <h1 class="text-center">Picked Up</h1>
+            </div>
+            <div class="row" ng-repeat="data in orderDashboardData track by data.id" ng-if="!data.preparing && !data.ready && data.picked_up">
+              <div class="perPickedUpOrder">
+                <div class="row" >
+                  <div class="col-md-6 text-center">
+                    {{ data.id }}
+                  </div>
+                  <div class="col-md-6 text-center">
+                    {{ localTime(data.pick_up_time) }}
+                  </div>
+                  <div class="row text-center" ng-repeat="product in data.products">
+                    <p>{{product.name}}</p>
+                  </div>
+                  <div class="row text-center">
+                    <button ng-click="oppsFoodNotPickedUp(data.id)">Back</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- close PickedUpBox-->
+
+      </div>
+    </div>
+  </div> <!-- close orderDashboardContainer-->
+</div> <!-- close orderDashboardContainer-->

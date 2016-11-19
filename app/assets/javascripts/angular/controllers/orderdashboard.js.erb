@@ -1,7 +1,6 @@
 app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService', 'URL_CONSTANTS', function($scope, $http, $auth, UserService, URL_CONSTANTS){
 
   $scope.getTodaysOrders = function() {
-
     $http.get(URL_CONSTANTS.domain + "/api/orders").then(function(resp){
       console.log(resp.data)
       $scope.orderDashboardData = resp.data
@@ -9,26 +8,23 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       console.log(resp)
     })
 
-  };
-  $scope.getTodaysOrders();
+  }; //close getTodaysOrders
 
   $scope.startPreparing = function (id) {
     var preparingData = {
       preparing: true,
       ready: false,
       picked_up: false
-    }
+    };
+
     $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
-          // console.log(resp);
-          console.log(resp.data);
-          $scope.getTodaysOrders();
-          $scope.results = false;
+      $scope.getTodaysOrders();
+      $scope.results = false;
+    }, function (resp){
+      console.log(resp)
+    });
 
-
-        }, function (resp){
-          console.log(resp)
-        });
-  }
+  }; //close startPreparing
 
   $scope.foodIsReady = function (id) {
     var preparingData = {
@@ -37,70 +33,12 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       picked_up: false
     }
     $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
-          // console.log(resp);
-          console.log(resp.data);
-          $scope.getTodaysOrders();
-          $scope.results = false;
-
-
-        }, function (resp){
-          console.log(resp)
-        });
-  }
-
-  $scope.oppsNotPreparing = function (id) {
-    var preparingData = {
-      preparing: false,
-      ready: false,
-      picked_up: false
-    }
-    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
-          // console.log(resp);
-          console.log(resp.data);
-          $scope.getTodaysOrders();
-          $scope.results = false;
-
-
-        }, function (resp){
-          console.log(resp)
-        });
-  }
-
-  $scope.oppsFoodNotReady = function (id) {
-    var preparingData = {
-      preparing: true,
-      ready: false,
-      picked_up: false
-    }
-    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
-          // console.log(resp);
-          console.log(resp.data);
-          $scope.getTodaysOrders();
-          $scope.results = false;
-
-
-        }, function (resp){
-          console.log(resp)
-        });
-  }
-
-  $scope.oppsFoodNotPickedUp = function (id) {
-    var preparingData = {
-      preparing: false,
-      ready: true,
-      picked_up: false
-    }
-    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
-          // console.log(resp);
-          console.log(resp.data);
-          $scope.getTodaysOrders();
-          $scope.results = false;
-
-
-        }, function (resp){
-          console.log(resp)
-        });
-  }
+      $scope.getTodaysOrders();
+      $scope.results = false;
+    }, function (resp){
+      console.log(resp)
+    });
+  }; //close foodIsReady
 
   $scope.foodPickedUp = function (id) {
     var preparingData = {
@@ -109,62 +47,92 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
       picked_up: true
     }
     $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
-          // console.log(resp);
-          console.log(resp.data);
-          $scope.getTodaysOrders();
-          $scope.results = false;
+      $scope.getTodaysOrders();
+      $scope.results = false;
 
-        }, function (resp){
-          console.log(resp)
-        });
-  }
+    }, function (resp){
 
-  $scope.orderPickupTabs = true
+    });
+  }; //close foodPickedUp
+  $scope.oppsNotPreparing = function (id) {
+    var preparingData = {
+      preparing: false,
+      ready: false,
+      picked_up: false
+    }
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
+      $scope.getTodaysOrders();
+      $scope.results = false;
+    }, function (resp){
+      console.log(resp)
+    });
+  }; //close oppsNotPreparing
+
+  $scope.oppsFoodNotReady = function (id) {
+    var preparingData = {
+      preparing: true,
+      ready: false,
+      picked_up: false
+    }
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
+      $scope.getTodaysOrders();
+      $scope.results = false;
+    }, function (resp){
+      console.log(resp)
+    });
+  }; //close oppsFoodNotReady
+
+  $scope.oppsFoodNotPickedUp = function (id) {
+    var preparingData = {
+      preparing: false,
+      ready: true,
+      picked_up: false
+    }
+    $http.put(URL_CONSTANTS.domain + "/api/orders/"+id, preparingData).then(function (resp){
+      $scope.getTodaysOrders();
+      $scope.results = false;
+    }, function (resp){
+      console.log(resp)
+    });
+  }; //close oppsFoodNotPickedUp
 
   $scope.clickOrders = function () {
-
     $scope.orderPickupTabs = true
-
-  };
+  }; //close clickOrders
 
   $scope.clickPickups = function () {
-
     $scope.orderPickupTabs = false
+  }; //close clickPickups
 
-  }
+  $scope.search = function () {
+    $http.get(URL_CONSTANTS.domain + "/api/orders/"+$scope.searchId).then(function (resp){
+      $scope.results = true;
+      if (resp.data===null) {
+        $scope.searchFound = false;
+      } else {
+      $scope.searchResultData = resp.data
+      $scope.searchPickUpTime = $scope.localTime($scope.searchResultData.pick_up_time)
+      $scope.searchFound = true;
+      }
+      $scope.getSearchResults = resp.data;
+    }, function (resp){
+      $scope.searchFound = false;
+    });
+    $scope.searchInputedId =$scope.searchId
+    $scope.searchId=""
+  }; //close search
 
-$scope.results = false
+  $scope.localTime = function (x) {
+    var time = (new Date(x)).toString()
+     return time.slice(0,time.indexOf("GMT"));
+  };
 
-$scope.search = function () {
+  $scope.innitOrderDashboard = function () {
+    $scope.orderPickupTabs = true
+    $scope.results = false
+    $scope.getTodaysOrders();
+  };
 
-// console.log($scope.searchId)
-
-$http.get(URL_CONSTANTS.domain + "/api/orders/"+$scope.searchId).then(function (resp){
-          $scope.results = true;
-          // console.log(resp);
-          if (resp.data===null) {
-            console.log("not found");
-            console.log(resp);
-            $scope.searchFound = false;
-          }else {
-          console.log("found")
-          console.log(resp);
-          console.log(resp.data);
-          $scope.searchResultData = resp.data
-          $scope.searchFound = true;
-
-          }
-          $scope.getSearchResults = resp.data;
-
-        }, function (resp){
-          console.log(resp);
-          $scope.searchFound = false;
-
-        });
-          $scope.searchInputedId =$scope.searchId
-          $scope.searchId=""
-
-}
-
+  $scope.innitOrderDashboard();
 
 }]);
