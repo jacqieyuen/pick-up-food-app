@@ -4,7 +4,7 @@ $scope.transparentNav = true
 $document.on('scroll', function() {
   // do your things like logging the Y-axis
 
-  if ($window.scrollY > (window.innerHeight)*.82){
+  if ($window.scrollY > (window.innerHeight)*.25){
     console.log($window.scrollY)
     $scope.transparentNav = false
     console.log("larger than 380 " +$scope.transparentNav)
@@ -56,7 +56,9 @@ $document.on('scroll', function() {
     return total;
   }
 
-
+  $scope.checkoutLength = function () {
+    return $scope.checkoutList.length
+  }
   $scope.deleteItem = function($index){
     $scope.deletedItem = $scope.checkoutList.splice($index, 1);
     console.log("item that was deleted")

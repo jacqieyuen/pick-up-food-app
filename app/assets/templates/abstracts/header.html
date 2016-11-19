@@ -19,8 +19,9 @@
         <ul class="nav navbar-nav navbar-right">
            <li>
               <a href="" data-toggle="modal" data-target="#myModal">
-                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"><lavel id="cart-badge" class="badge badge-warning" ng-if="checkoutList.length > 0">{{ checkoutList.length }}</lavel></span>
               </a>
+
             </li>
             <li class="dropdown">
               <a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
@@ -38,7 +39,7 @@
       </div>
     </div>
   </nav>
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" class="solidNavBar" ng-show="transparentNav == false">
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="solidNavBar" ng-show="transparentNav == false">
       <div class="container-fluid">
 
       <div class="navbar-header">
@@ -51,7 +52,7 @@
         <ul class="nav navbar-nav navbar-right">
            <li>
               <a href="" data-toggle="modal" data-target="#myModal">
-                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"><lavel id="cart-badge" class="badge badge-warning" ng-if="checkoutList.length > 0">{{ checkoutList.length }}</lavel></span>
               </a>
             </li>
             <li class="dropdown">
@@ -87,7 +88,7 @@
            <div class="row modalTableTitle" ng-if="checkoutList.length >= 1">
             <div class="col-md-8 "><strong>Product</strong></div>
             <div class="col-md-3 "><strong>Price</strong></div>
-            <div class="col-md-1 "><strong>Delete</strong></div>
+            <div class="col-md-1"><strong>Delete</strong></div>
           </div>
           <div class="row modalRow" ng-repeat="product in checkoutList track by $index">
             <div class="col-md-3">
@@ -104,7 +105,7 @@
               </div>
             </div>
             <div class="col-md-1">
-              <button ng-click="deleteItem($index)"><strong>X</strong></button>
+              <button ng-click="deleteItem($index)" class="modalDeleteButton"><strong>X</strong></button>
             </div>
 
         </div>

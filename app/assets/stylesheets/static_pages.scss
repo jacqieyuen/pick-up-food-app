@@ -29,7 +29,7 @@
       font-size: 20px;
     }
   }
-  .solidNavBar {
+  #solidNavBar {
     height:50px;
     background-color: rgb(255,255,255);
     border-color: rgb(255,255,255);
@@ -38,12 +38,21 @@
     color: white;
     font-size: 160%;
   }
+  .badge {
+    border-radius: 9px;
+    font-size: 13px;
+    padding-top: 0;
+  }
   .modalRow {
     margin: 10px 10px;
   }
   .modalImg {
     width: 80px;
     max-height: 50px;
+  }
+
+  .modalDeleteButton:hover {
+    opacity: 1;
   }
 
   .modalButtons {
@@ -66,6 +75,7 @@
     #homeBackground {
       width: auto;
       height: 100vh;
+      min-width: 100%;
       position:relative;
       opacity: 0.9;
       filter: brightness(44%);
@@ -84,8 +94,8 @@
       width: 210px;
       float: center;
       position: absolute;
-      left: 75.5vh;
-      top: 85vh;
+      left: 42%;
+      top: 84%;
       background-color: rgba(0,0,0,0.2)
     }
   }
@@ -101,7 +111,20 @@
       height: auto;
       position:relative;
       opacity: 0.9;
-      filter: brightness(56%);
+      filter: brightness(54%);
+    }
+    #menuQuote {
+      float: center;
+      position: absolute;
+      left: 15%;
+      top: 31%;
+      z-index: 1000;
+      // background-color: rgba(0,0,0,0.2);
+      img {
+        width: 120%;
+        border: solid 1px;
+        border-color: rgba(255,255,255, 0.8);
+      }
     }
     #transparentNavbarmenu {
       position: absolute;
@@ -124,7 +147,7 @@
     text-align: center;
     border-color: rgba(0,0,0,0.1);
     border-radius: 0;
-    background-color: rgba(225,225,225,225);
+    background-color: white;
     a {
       color: gray;
       font-size: 1em;
@@ -134,22 +157,37 @@
       text-transform: uppercase;
     }
   }
+  #menuMain {
+    background-color:rgb(248,248,246);
+  }
 // // // CATEGORY SEPERATOR
 .categorySeperator {
+  font-family: Helvetica, sans-serif;
+  font-weight: lighter;
   text-align: center;
 }
 
 // // THUMBNAIL
 .thumbnail {
   padding: 0;
-  border-radius: 0;
+  border-radius: 7px;
+  border: 0;
+  overflow: hidden;
 }
 
 .thumbnail img {
   height: 30%;
   width: 100%;
 }
+.caption {
+  padding: 0 4% !important;
+  font-family: Helvetica, sans-serif;
+  font-weight: lighter;
+  h3 {
+    height: 45px;
+  }
 
+}
 
 //checkout >> customer
 #checkoutOrderSummary {
@@ -207,9 +245,7 @@
   margin: 0 auto;
 }
 
-.caption > h3 {
-  height: 50px;
-}
+
 
 //order dashboard >> restaurant
 #orderDashboardContainer {
@@ -223,16 +259,20 @@
   .perIncomingOrder, .perPreparingOrder, .perFinishedOrder, .perPickedUpOrder {
     border: solid gray 2px;
     margin: 5px 0;
+    border-radius: 7px;
+    padding: 5px 5px;
   }
 
   .perSearchResult {
     border: solid gray 2px;
+    border-radius: 7px;
     margin: 5px 0;
     padding: 0 20px;
   }
 
   #innerIncomingOrders, #innerPreparingOrderBox, .innerFinishedOrderBox, #innerPickUpSearchBox, #innerPickedUpBox{
     border: solid gray 2px;
+    border-radius: 5px;
     padding: 10px 20px;
     max-height: 85vh;
     overflow-y: scroll;

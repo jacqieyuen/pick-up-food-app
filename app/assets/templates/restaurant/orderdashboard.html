@@ -24,7 +24,7 @@
               <div class="perIncomingOrder">
                 <div class="row" >
                   <div class="col-md-6 text-center">
-                    {{ data.id }}
+                    {{ data.id }} - {{ data.pickup_code }}
                   </div>
                   <div class="col-md-6 text-center">
                     {{ localTime(data.pick_up_time) }}
@@ -50,7 +50,7 @@
               <div class="perPreparingOrder">
                 <div class="row" >
                   <div class="col-md-6 text-center">
-                    {{ data.id }}
+                    {{ data.id }} - {{ data.pickup_code }}
                   </div>
                   <div class="col-md-6 text-center">
                     {{ localTime(data.pick_up_time) }}
@@ -77,7 +77,7 @@
               <div class="perFinishedOrder">
                 <div class="row" >
                   <div class="col-md-6 text-center">
-                  {{ data.id }}
+                  {{ data.id }} - {{ data.pickup_code }}
                   </div>
                   <div class="col-md-6 text-center">
                     {{ localTime(data.pick_up_time) }}
@@ -123,7 +123,7 @@
                   </div>
 
                   <div class="row" ng-show="searchFound">
-                    <h4>{{searchResultData.id}}</h4>
+                    <h4>{{searchResultData.id}} - {{searchResultData.pickup_code}}</h4>
                     <h4>{{ localTime(searchResultData.pick_up_time) }}</h4>
 
                     <p ng-repeat="result in searchResultData.products"> {{result.name}} </p>
@@ -157,7 +157,7 @@
               <div class="perFinishedOrder">
                 <div class="row" >
                   <div class="col-md-6 text-center">
-                  {{ data.id }}
+                  {{ data.id }} - {{ data.pickup_code }}
                   </div>
                   <div class="col-md-6 text-center">
                     {{ localTime(data.pick_up_time) }}
@@ -183,7 +183,7 @@
               <div class="perPickedUpOrder">
                 <div class="row" >
                   <div class="col-md-6 text-center">
-                    {{ data.id }}
+                    {{ data.id }} - {{ data.pickup_code }}
                   </div>
                   <div class="col-md-6 text-center">
                     {{ localTime(data.pick_up_time) }}
