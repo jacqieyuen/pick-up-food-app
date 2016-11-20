@@ -1,25 +1,20 @@
-app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', 'UserService', '$localStorage', '$window', '$document', function($scope, $auth, $rootScope, UserService, $localStorage, $window, $document){
+app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', 'UserService', '$window', '$document','$localStorage', function($scope, $auth, $rootScope, UserService, $window, $document, $localStorage){
 
-$scope.transparentNav = true
-$document.on('scroll', function() {
-  // do your things like logging the Y-axis
 
-  if ($window.scrollY > (window.innerHeight)*.25){
-    console.log($window.scrollY)
-    $scope.transparentNav = false
-    console.log("larger than 380 " +$scope.transparentNav)
+  $scope.documentScrollNav = function () {
+    $document.on('scroll', function() {
+      // do your things like logging the Y-axis
 
-  }else {
-    $scope.transparentNav = true;
-    console.log($window.scrollY)
-    console.log("smaller than 380 "+$scope.transparentNav)
+      if ($window.scrollY > (window.innerHeight)*.25){
+        $scope.transparentNav = false
 
-  }
-  $scope.$apply();
-});
+      }else {
+        $scope.transparentNav = true;
+      }
+      $scope.$apply();
+    });
+  };
 
-  $scope.user = UserService.user;
-  // console.log(($scope.user).loggedin)
   $scope.initCheckoutList = function () {
     $scope.checkoutList = [];
     $scope.checkoutList = $localStorage.checkoutList
@@ -41,12 +36,11 @@ $document.on('scroll', function() {
 
   $scope.saveCheckoutList = function () {
     $localStorage.checkoutList = $scope.checkoutList;
-
     $scope.currentTime = new Date();
     $scope.currentHour = $scope.currentTime.getTime();
     $scope.expirationTime = $scope.currentHour + (3*60*60*1000);
     localStorage.expirationTime = $scope.expirationTime;
-  }
+  };
 
   $scope.checkoutTotal = function () {
     var total = 0;
@@ -54,21 +48,20 @@ $document.on('scroll', function() {
       total += $scope.checkoutList[i].price
     }
     return total;
-  }
+  };
 
   $scope.checkoutLength = function () {
     return $scope.checkoutList.length
-  }
+    //console
+  };
+
   $scope.deleteItem = function($index){
     $scope.deletedItem = $scope.checkoutList.splice($index, 1);
     console.log("item that was deleted")
     console.log($scope.deletedItem)
     console.log("items left in checkoutList")
     console.log($scope.checkoutList)
-  }
-
-  $scope.initCheckoutList();
-
+  };
 
   $scope.logout = function () {
     $auth.signOut().then(function(resp) {
@@ -78,4 +71,13 @@ $document.on('scroll', function() {
     });
   };
 
-}])
+  $scope.initHeader = function () {
+    $scope.transparentNav = true
+    $scope.user = UserService.user;
+    $scope.documentScrollNav();
+    $scope.initCheckoutList();
+  };
+
+  $scope.initHeader();
+
+}]);

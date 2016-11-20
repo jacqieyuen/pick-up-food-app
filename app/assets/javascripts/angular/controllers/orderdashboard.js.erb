@@ -7,7 +7,6 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
     }, function errorCallback(resp){
       console.log(resp)
     })
-
   }; //close getTodaysOrders
 
   $scope.startPreparing = function (id) {
@@ -23,7 +22,6 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
     }, function (resp){
       console.log(resp)
     });
-
   }; //close startPreparing
 
   $scope.foodIsReady = function (id) {
@@ -54,6 +52,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
 
     });
   }; //close foodPickedUp
+
   $scope.oppsNotPreparing = function (id) {
     var preparingData = {
       preparing: false,
@@ -97,11 +96,13 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
   }; //close oppsFoodNotPickedUp
 
   $scope.clickOrders = function () {
-    $scope.orderPickupTabs = true
+    $scope.orderPickupTabs = true;
+    //console
   }; //close clickOrders
 
   $scope.clickPickups = function () {
-    $scope.orderPickupTabs = false
+    $scope.orderPickupTabs = false;
+    //console
   }; //close clickPickups
 
   $scope.search = function () {

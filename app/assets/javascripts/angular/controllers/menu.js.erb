@@ -1,18 +1,18 @@
 app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', 'URL_CONSTANTS', '$anchorScroll', '$location', '$window', '$document',function($scope, $http, $auth, UserService, $localStorage, URL_CONSTANTS, $anchorScroll, $location, $window, $document){
 
-  $anchorScroll.yOffset = 140;
 
-  $scope.menuScroll=false
-  $document.on('scroll', function() {
-    // do your things like logging the Y-axis
+  $scope.documentScroll = function () {
+    $document.on('scroll', function() {
+      // do your things like logging the Y-axis
 
-    if ($window.scrollY > (window.innerHeight)*.15){
-      $scope.menuScroll = true
-    }else {
-      $scope.menuScroll = false;
-    }
-    $scope.$apply();
-  });
+      if ($window.scrollY > (window.innerHeight)*.15){
+        $scope.menuScroll = true
+      }else {
+        $scope.menuScroll = false;
+      }
+      $scope.$apply();
+    });
+  };
 
    $scope.gotoAnchor = function(x) {
       var newHash = 'anchor' + x;
@@ -27,30 +27,49 @@ app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localSt
       }
     };
 
+  $scope.getCategories = function (url) {
+    $http.get(url + '/api/categories').success(function(response){
+      // console.log(response);
+      $scope.categories = response;
+    });
+  };
 
-  $scope.message = "Menu Page";
+  $scope.getProducts = function (url) {
+    $http.get(url + '/api/products').success(function(response){
+      $scope.products = response;
+      // console.log($scope.products);
+    });
+  };
 
+  $scope.saveCheckoutList = function () {
+    $localStorage.checkoutList = $scope.checkoutList;
 
-  var url = URL_CONSTANTS.domain;
-
-  $http.get(url + '/api/categories').success(function(response){
-    // console.log(response);
-    $scope.categories = response;
-  });
-
-  $http.get(url + '/api/products').success(function(response){
-    $scope.products = response;
-    // console.log($scope.products);
-  });
+    $scope.currentTime = new Date();
+    $scope.currentHour = $scope.currentTime.getTime();
+    $scope.expirationTime = $scope.currentHour + (3*60*60*1000);
+    localStorage.expirationTime = $scope.expirationTime;
+  };
 
   $scope.addToCheckout = function(add_id) {
     $scope.result = $scope.products.filter(function(obj){
       return obj.id == add_id
     })[0];
     $scope.checkoutList.push($scope.result);
-
+    $scope.saveCheckoutList();
     console.log("adding this item below to basket")
     console.log($scope.result);
-  }
+  };
+
+  $scope.initMenu = function () {
+    $scope.message = "Menu Page";
+    $anchorScroll.yOffset = 140;
+    $scope.menuScroll=false
+    $scope.documentScroll();
+    var url = URL_CONSTANTS.domain;
+    $scope.getCategories(url);
+    $scope.getProducts(url);
+  };
+
+  $scope.initMenu();
 
 }]);

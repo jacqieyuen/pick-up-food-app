@@ -42,8 +42,11 @@ app.service('UserService', ['$auth', '$rootScope', function($auth, $rootScope){
 
     $rootScope.$on('auth:validation-success', loggedinCb);
     $rootScope.$on('auth:login-success', loggedinCb);
+    $rootScope.$on('auth:registration-email-success', loggedinCb);
+    $rootScope.$on('auth:registration-email-error', loggedoutCb);
     $rootScope.$on('auth:logout-success', loggedoutCb);
     $rootScope.$on('auth:logout-error', loggedoutCb);
+
   };
 
   var init = function () {

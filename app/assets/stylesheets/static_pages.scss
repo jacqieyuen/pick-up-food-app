@@ -23,6 +23,10 @@
     background-color: rgba(0,0,0,0);
     border-bottom-width: 1px;
     border-color: rgba(255,255,255, 0.3);
+    .headerMenuLink {
+      color: white;
+      font-size: 160%;
+    }
 
     span {
       color: white;
@@ -32,11 +36,13 @@
   #solidNavBar {
     height:50px;
     background-color: rgb(255,255,255);
-    border-color: rgba(1,1,1,0.5);
-  }
-  .headerMenuLink {
-    color: white;
-    font-size: 160%;
+    border-color: rgba(1,1,1,0.3);
+    a {
+      color: #333333;
+    }
+    .headerMenuLink {
+      color: #333333;
+    }
   }
   .badge {
     border-radius: 9px;
@@ -46,6 +52,7 @@
   .modalRow {
     margin: 10px 10px;
   }
+
   .modalImg {
     width: 80px;
     max-height: 50px;
@@ -53,6 +60,7 @@
 
   .modalDeleteButton:hover {
     opacity: 0.1;
+
   }
 
   .modalButtons {
@@ -167,6 +175,10 @@
     background-color:rgb(248,248,246);
     padding: 0;
     margin: 0;
+    nav > div {
+      display: inline-block;
+      text-align: center;
+    }
   }
 // // // CATEGORY SEPERATOR
 .categorySeperator {
@@ -178,6 +190,7 @@
   font-family: Helvetica, sans-serif;
   font-weight: lighter;
   text-align: center;
+  margin-bottom: 1%;
 }
 
 // // THUMBNAIL
@@ -193,7 +206,7 @@
 }
 
 .thumbnail:hover {
-    box-shadow: 0 0 0 1px gray;
+    box-shadow: 0 0 0 1px #033961;
 }
 
 .thumbnailImg > img {

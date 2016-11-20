@@ -1,15 +1,11 @@
 app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', 'URL_CONSTANTS', function($scope, $http, $location, UserService, $localStorage, URL_CONSTANTS){
 
-  $scope.message = "Checkout Page"
-  $scope.userData = UserService.user
-  $scope.checkoutList = $localStorage.checkoutList;
-  $scope.ordersummary = false
 
-  $scope.deleteItem = function($index){
-    $scope.deletedItem = $scope.checkoutList.splice($index, 1);
+
+  $scope.deleteItem = function ($index) {
+    $scope.deletedItem = $scope.checkoutList.splice($index, 1)
+    //console.log
   };
-
-
 
   $scope.checkoutTotal = function () {
     $scope.total = 0;
@@ -17,13 +13,11 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       $scope.total += $scope.checkoutList[i].price
     }
     return $scope.total;
-  }
+  };
 
   $scope.braintreeForm = function () {
     $http.get(URL_CONSTANTS.domain + '/api/transactions/get_client_token').success(function(response){
       $scope.clientToken = response.key
-      // console.log($scope.clientToken);
-      // console.log(($scope.total).toString());
       braintree.setup($scope.clientToken, 'dropin', {
         container: 'dropin-container',
         paymentMethodNonceReceived: function (event, nonce) {
@@ -31,8 +25,6 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
             amount: ($scope.total).toString(),
             payment_method_nonce: nonce
           };
-          // console.log(nonce)
-          // console.log(($scope.total).toString())
           $http.post(URL_CONSTANTS.domain + '/api/transactions', $scope.data).then(function (resp){
             console.log(resp);
             $scope.createOrder();
@@ -42,9 +34,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
         }
       });
     });
-  } //close braintreeForm
-
-  $scope.braintreeForm();
+  }; //close braintreeForm
 
   $scope.createOrder = function() {
     $scope.createOrderData = {
@@ -86,6 +76,42 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
      return time.slice(0,time.indexOf("GMT"));
   };
 
+  function round5(x) {
+    if (x<60){
+    return Math.ceil(x/5)*5;
+    }else{return 0}
+  };
+
+  function minutePlus15(x, currentHour){
+    x = x + 15;
+    if (x>55){
+      x = x - 60;
+      return {minute: round5(x), hour: (currentHour+1)};
+        ;
+    }else{return {minute: x, hour: currentHour};}
+  };
+
+  function listOfTimes(currentHour, minuteRounded, flag){
+    if(currentHour>=6){
+      for(currentHour; currentHour<=19; currentHour++){
+        if(flag){
+          minuteRounded=0;
+        };
+        for(minuteRounded; minuteRounded<=55; minuteRounded = minuteRounded+5){
+          var Minute = 0
+          if (minuteRounded<=6){
+            Minute = "0"+minuteRounded;
+          }else{
+            Minute = minuteRounded};
+          var availableTime = currentHour+":"+Minute;
+          $scope.timesArray.push(availableTime);
+          flag = true;
+
+        };
+      };
+    }
+  }
+
   $scope.createTimes = function () {
     $scope.timesArray = []
     var flag = false;
@@ -93,47 +119,11 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
     var currentTime = new Date();
     var currentHour = currentTime.getHours();
     var currentMinute = currentTime.getMinutes();
-    function round5(x) {
-    if (x<60){
-    return Math.ceil(x/5)*5;
-    }else{return 0}
-    };
-
-    function minutePlus15(x, currentHour){
-      x = x + 15;
-      if (x>55){
-        x = x - 60;
-        return {minute: round5(x), hour: (currentHour+1)};
-        ;
-      }else{return {minute: x, hour: currentHour};}
-    };
     var minuteRounded = (minutePlus15(round5(currentMinute), currentHour)).minute;
-
     currentHour = (minutePlus15(round5(currentMinute), currentHour)).hour;
-    function listOfTimes(){
-      if(currentHour>=6){
-        for(currentHour; currentHour<=19; currentHour++){
-          if(flag){
-            minuteRounded=0;
-          };
-          for(minuteRounded; minuteRounded<=55; minuteRounded = minuteRounded+5){
-            var Minute = 0
-            if (minuteRounded<=6){
-              Minute = "0"+minuteRounded;
-            }else{
-              Minute = minuteRounded};
-            var availableTime = currentHour+":"+Minute;
-            $scope.timesArray.push(availableTime);
-            flag = true;
-
-          };
-        };
-      }
-    }
-    listOfTimes();
-    console.log("generating times LOOOOOOOKLOOK!");
+    listOfTimes(currentHour, minuteRounded, flag);
   };
-  $scope.createTimes();
+
   $scope.showSelectedTime = function () {
     $scope.hourOfPickUp = parseInt($scope.pickedTime.slice(0,$scope.pickedTime.indexOf(":")))
     $scope.minuteOfPickUp = parseInt($scope.pickedTime.slice($scope.pickedTime.indexOf(":")+1))
@@ -141,6 +131,15 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
     $scope.selectedPickUpTime = new Date($scope.currentDate.setHours($scope.hourOfPickUp, $scope.minuteOfPickUp));
   };
 
+  $scope.initCheckout = function () {
+    $scope.message = "Checkout Page"
+    $scope.userData = UserService.user
+    $scope.braintreeForm();
+    $scope.checkoutList = $localStorage.checkoutList;
+    $scope.ordersummary = false
+    $scope.createTimes();
+  };
 
+  $scope.initCheckout();
 
 }]);

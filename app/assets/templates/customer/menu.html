@@ -19,7 +19,7 @@
 
   <div class="container-fluid" id="menuMain">
     <nav id="solidNavbarmenu" class="navbar navbar text-center"  sticky offset="49" ng-if="menuScroll == true">
-      <div class="container-fluid" style="display: inline-block; text-align: center;">
+      <div class="container-fluid">
         <div class="navbar-header">
           <ul class="nav navbar-nav">
             <li ng-repeat="category in categories" ><a href='' ng-click="gotoAnchor(category.name)">{{ category.name }}</a></li>
@@ -32,7 +32,7 @@
       <h1> {{ message }} </h1>
     </div> -->
     <div class="row categorySeperator" ng-repeat="category in categories">
-      <h1 class="innerCategorySeperator" id="{{ category.name }}" style=" margin-bottom: 1%;">{{ category.name }}</h1>
+      <h1 class="innerCategorySeperator" id="{{ category.name }}">{{ category.name }}</h1>
 
       <div class="col-sm-6 col-md-4" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
         <div class=" thumbnailOutter">

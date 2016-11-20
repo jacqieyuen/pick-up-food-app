@@ -1,17 +1,13 @@
-app.controller('LogInCtrl', ['$scope', '$auth', '$rootScope', 'UserService', '$location', function($scope, $auth, $rootScope, UserService, $location){
+app.controller('LogInCtrl', ['$scope', '$auth', 'UserService', '$location', function($scope, $auth, UserService, $location){
+
   $scope.login = function () {
-    // console.log($scope.loginForm)
     $auth.submitLogin($scope.loginForm).
-     then(function(resp) {
-       // handle success response
+    then(function(resp) {
       console.log(resp);
-      $rootScope.user = UserService.user.loggedin;
-       // redirect back to root when login succesfull
-       $location.path('/');
-     })
-     .catch(function(resp) {
-       // handle error response
-       console.log(resp);
-     });
+      $location.path('/');
+    }).catch(function(resp) {
+      console.log(resp);
+    });
   };
+
 }])
