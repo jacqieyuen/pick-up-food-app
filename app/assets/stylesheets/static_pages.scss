@@ -4,75 +4,75 @@
 
 
 //header page >> abstract
-#mainHeader {
-  font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+  #mainHeader {
+    font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
 
-  .navbar-brand-centered {
-      position: absolute;
-      left: 50%;
-      display: block;
-      width: 160px;
-      text-align: center;
-  }
-  .navbar>.container .navbar-brand-centered,
-  .navbar>.container-fluid .navbar-brand-centered {
-      margin-left: -80px;
-  }
-  #transparentNavBar {
-    height:50px;
-    background-color: rgba(0,0,0,0);
-    border-bottom-width: 1px;
-    border-color: rgba(255,255,255, 0.3);
-    .headerMenuLink {
-      color: white;
-      font-size: 160%;
+    .navbar-brand-centered {
+        position: absolute;
+        left: 50%;
+        display: block;
+        width: 160px;
+        text-align: center;
+    }
+    .navbar>.container .navbar-brand-centered,
+    .navbar>.container-fluid .navbar-brand-centered {
+        margin-left: -80px;
+    }
+    #transparentNavBar {
+      height:50px;
+      background-color: rgba(0,0,0,0);
+      border-bottom-width: 1px;
+      border-color: rgba(255,255,255, 0.3);
+      .headerMenuLink {
+        color: white;
+        font-size: 160%;
+      }
+
+      span {
+        color: white;
+        font-size: 20px;
+      }
+    }
+    #solidNavBar {
+      height:50px;
+      background-color: rgb(255,255,255);
+      border-color: rgba(1,1,1,0.3);
+      a {
+        color: #333333;
+      }
+      .headerMenuLink {
+        color: #333333;
+      }
+    }
+    .badge {
+      border-radius: 9px;
+      font-size: 13px;
+      padding-top: 0;
+    }
+    .modalRow {
+      margin: 10px 10px;
     }
 
-    span {
-      color: white;
-      font-size: 20px;
+    .modalImg {
+      width: 80px;
+      max-height: 50px;
+    }
+
+    .modalDeleteButton:hover {
+      opacity: 0.1;
+
+    }
+
+    .modalButtons {
+      margin-top: 20px;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    .modalTableTitle{
+      margin: 10px 25px 0px 13px;
     }
   }
-  #solidNavBar {
-    height:50px;
-    background-color: rgb(255,255,255);
-    border-color: rgba(1,1,1,0.3);
-    a {
-      color: #333333;
-    }
-    .headerMenuLink {
-      color: #333333;
-    }
-  }
-  .badge {
-    border-radius: 9px;
-    font-size: 13px;
-    padding-top: 0;
-  }
-  .modalRow {
-    margin: 10px 10px;
-  }
-
-  .modalImg {
-    width: 80px;
-    max-height: 50px;
-  }
-
-  .modalDeleteButton:hover {
-    opacity: 0.1;
-
-  }
-
-  .modalButtons {
-    margin-top: 20px;
-    margin-right: 0;
-    margin-left: 0;
-  }
-
-  .modalTableTitle{
-    margin: 10px 25px 0px 13px;
-  }
-}
 
 //index >> static
   #homeContainer {
@@ -282,8 +282,6 @@
   display: table;
   margin: 0 auto;
 }
-
-
 
 //order dashboard >> restaurant
 #orderDashboardContainer {
