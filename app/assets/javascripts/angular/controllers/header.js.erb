@@ -1,5 +1,9 @@
-app.controller('HeaderCtrl', ['$scope', '$auth', '$rootScope', 'UserService', '$window', '$document','$localStorage', function($scope, $auth, $rootScope, UserService, $window, $document, $localStorage){
+app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$document', '$location', '$localStorage', function($scope, $auth, UserService, $window, $document, $location, $localStorage){
 
+  $scope.modalRedirect = function (location) {
+   $location.path(location);
+   console.log($location.path(location))
+  }
 
   $scope.documentScrollNav = function () {
     $document.on('scroll', function() {

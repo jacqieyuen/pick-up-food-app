@@ -120,10 +120,10 @@
               </div>
             </div>
             <div class="text-center">
-              <a href="/#/login"  ng-hide="user.loggedin"><button class="btn btn-primary modalButtons">Log In</button></a>
-              <a href="/#/signup" ng-hide="user.loggedin"><button class="btn btn-primary modalButtons">Sign Up</button></a>
+              <a href="" ng-click="modalRedirect('login')" ng-hide="user.loggedin"><button class="btn btn-primary modalButtons" data-dismiss="modal">Log In</button></a>
+              <a href=""  ng-click="modalRedirect('signup')" ng-hide="user.loggedin"><button class="btn btn-primary modalButtons" data-dismiss="modal">Sign Up</button></a>
               <a href="/#/checkout" ng-show="user.loggedin" ng-if="checkoutList.length >= 1"><button class="btn btn-primary modalButtons" ng-click="saveCheckoutList()">Checkout</button></a>
-              <a href="/#/menu" ng-if="checkoutList.length < 1"><button class="btn btn-primary modalButtons" ng-click="saveCheckoutList()">Add Something To Your Cart :)</button></a>
+              <a href="" ng-click="modalRedirect('menu')" ng-if="checkoutList.length < 1"><button class="btn btn-primary modalButtons" ng-click="saveCheckoutList()" data-dismiss="modal">Add Something To Your Cart :)</button></a>
             </div>
 
           </div>
