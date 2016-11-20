@@ -1,9 +1,20 @@
 'use strict';
 
 // var app = angular.module('appName', ['oneDependency']);
-var app = angular.module('pick_up_food', ['ui.router', 'ui.bootstrap', 'ng-token-auth', 'ngStorage', 'sticky']);
+var app = angular.module('pick_up_food', ['ui.router', 'ui.bootstrap', 'ng-token-auth', 'ngStorage', 'sticky', 'ui-notification']);
 
-app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', 'URL_CONSTANTS', function($stateProvider, $urlRouterProvider, $authProvider, URL_CONSTANTS) {
+app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', 'URL_CONSTANTS', 'NotificationProvider', function($stateProvider, $urlRouterProvider, $authProvider, URL_CONSTANTS, NotificationProvider) {
+
+   NotificationProvider.setOptions({
+            delay: 2000,
+            startTop: 20,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'right',
+            positionY: 'top'
+        });
+
   $urlRouterProvider.otherwise('/');
 
   $authProvider.configure({
@@ -23,18 +34,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', 'URL_CONSTA
       url:'/',
       templateUrl: "<%= asset_path('static_pages/index.html') %>",
       controller: 'StaticPagesCtrl'
-    })
-    .state({
-      name:'header.signup',
-      url:'/signup',
-      templateUrl: "<%= asset_path('auth/signup.html') %>",
-      controller: 'SignUpCtrl'
-    })
-    .state({
-      name:'header.login',
-      url:'/login',
-      templateUrl: "<%= asset_path('auth/login.html') %>",
-      controller: 'LogInCtrl'
     })
     .state({
       name:'header.menu',

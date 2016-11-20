@@ -13,6 +13,7 @@
 //= require angular/angular
 //= require braintree
 //= require ngSticky/lib/sticky
+//= require angular-ui-notification/dist/angular-ui-notification
 //= require angular-resource/angular-resource
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require angular-cookie/angular-cookie

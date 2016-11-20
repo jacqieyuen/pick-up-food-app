@@ -1,17 +1,30 @@
-app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$document', '$location', '$localStorage', function($scope, $auth, UserService, $window, $document, $location, $localStorage){
+app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$document', '$location', '$localStorage', 'Notification', function($scope, $auth, UserService, $window, $document, $location, $localStorage, Notification){
 
-  $scope.modalRedirect = function (location) {
-   $location.path(location);
-   console.log($location.path(location))
-  }
+  $scope.login = function () {
+    $auth.submitLogin($scope.loginForm).
+    then(function(resp) {
+      console.log(resp);
+      Notification.success("You have successfully logged in");
+    }).catch(function(resp) {
+      console.log(resp);
+      Notification.error('Incorrect password or email')
+    });
+  };
+
+  $scope.signup = function () {
+    $auth.submitRegistration($scope.registrationForm).
+    then(function(resp) {
+      Notification.success("You have successfully signed in");
+    }).catch(function(resp) {
+      Notification.error('Incorrect password or email')
+    });
+  };
 
   $scope.documentScrollNav = function () {
     $document.on('scroll', function() {
       // do your things like logging the Y-axis
-
       if ($window.scrollY > (window.innerHeight)*.25){
         $scope.transparentNav = false
-
       }else {
         $scope.transparentNav = true;
       }

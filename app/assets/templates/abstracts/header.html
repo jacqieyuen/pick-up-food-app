@@ -29,8 +29,8 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li ng-hide="user.loggedin"><a href="/#/login" >Log In</a></li>
-                <li ng-hide="user.loggedin"><a href="/#/signup">Sign Up</a></li>
+                <li ng-hide="user.loggedin"><a href="" data-toggle="modal" data-target="#loginModal">Log In</a></li>
+                <li ng-hide="user.loggedin"><a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>
                 <li ng-show="user.loggedin"><a href="" >Profile</a></li>
                 <li ng-show="user.loggedin"><a href="" ng-click="logout()" >Log Out</a></li>
               </ul>
@@ -39,6 +39,7 @@
       </div>
     </div>
   </nav>
+
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation" id="solidNavBar" ng-show="transparentNav == false">
       <div class="container-fluid">
 
@@ -61,8 +62,8 @@
                 <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                <li ng-hide="user.loggedin"><a href="/#/login" >Log In</a></li>
-                <li ng-hide="user.loggedin"><a href="/#/signup">Sign Up</a></li>
+                <li ng-hide="user.loggedin"><a href="" data-toggle="modal" data-target="#loginModal">Log In</a></li>
+                <li ng-hide="user.loggedin"><a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>
                 <li ng-show="user.loggedin"><a href="" >Profile</a></li>
                 <li ng-show="user.loggedin"><a href="" ng-click="logout()" >Log Out</a></li>
               </ul>
@@ -72,7 +73,7 @@
     </div>
   </nav>
   <div ui-view></div>
-
+</div>
   <!-- Modal -->
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -120,8 +121,8 @@
               </div>
             </div>
             <div class="text-center">
-              <a href="" ng-click="modalRedirect('login')" ng-hide="user.loggedin"><button class="btn btn-primary modalButtons" data-dismiss="modal">Log In</button></a>
-              <a href=""  ng-click="modalRedirect('signup')" ng-hide="user.loggedin"><button class="btn btn-primary modalButtons" data-dismiss="modal">Sign Up</button></a>
+              <a href="" data-toggle="modal" data-target="#loginModal" ng-hide="user.loggedin"><button class="btn btn-primary modalButtons" data-dismiss="modal">Log In</button></a>
+              <a href="" data-toggle="modal" data-target="#signupModal" ng-hide="user.loggedin"><button class="btn btn-primary modalButtons" data-dismiss="modal">Sign Up</button></a>
               <a href="/#/checkout" ng-show="user.loggedin" ng-if="checkoutList.length >= 1"><button class="btn btn-primary modalButtons" ng-click="saveCheckoutList()">Checkout</button></a>
               <a href="" ng-click="modalRedirect('menu')" ng-if="checkoutList.length < 1"><button class="btn btn-primary modalButtons" ng-click="saveCheckoutList()" data-dismiss="modal">Add Something To Your Cart :)</button></a>
             </div>
@@ -130,6 +131,71 @@
         </div>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<div id="loginModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Log In</h4>
+        </div>
+        <div class="modal-body" >
+          <form ng-submit="login()" role="form" ng-init="loginForm = {}">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" ng-model="loginForm.email" required="required" class="form-control" placeholder="Enter Email"/>
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" ng-model="loginForm.password" required="required" class="form-control" placeholder="Enter Password"/>
+            </div>
+            <button type="submit" class="hide">Log In</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="login()" data-dismiss="modal">Log In</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="signupModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Sign Up</h4>
+        </div>
+        <div class="modal-body" >
+          <form ng-submit="signup()" role="form" ng-init="registrationForm = {}">
+
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" ng-model="registrationForm.email" required="required" class="form-control" placeholder="Enter Email"/>
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" name="password" ng-model="registrationForm.password" required="required" class="form-control" placeholder="Enter Password"/>
+            </div>
+
+            <div class="form-group">
+              <label>password Confirmation</label>
+              <input type="password" name="password_confirmation" ng-model="registrationForm.password_confirmation" required="required" class="form-control" placeholder="Enter Password Confirmation"/>
+            </div>
+
+            <button type="submit" class="hide">Register</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" ng-click="signup()" data-dismiss="modal">Sign Up</button>
+
+      </div>
     </div>
   </div>
 </div>

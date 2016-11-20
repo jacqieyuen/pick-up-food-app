@@ -6,6 +6,7 @@
 //header page >> abstract
   #mainHeader {
     font-family: Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif;
+    background-color:rgb(248,248,246);
 
     .navbar-brand-centered {
         position: absolute;
@@ -106,6 +107,10 @@
       top: 84%;
       background-color: rgba(0,0,0,0.2)
     }
+  }
+//login signup >> auth
+  .authContainer{
+    padding-top: 65px;
   }
 
 // menu >> customer

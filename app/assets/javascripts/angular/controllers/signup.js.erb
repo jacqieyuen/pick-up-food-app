@@ -4,8 +4,9 @@ app.controller('SignUpCtrl', ['$scope', '$auth', '$location', function($scope, $
     $auth.submitRegistration($scope.registrationForm).
     then(function(resp) {
       $location.path('/');
+      Notification.success("You have successfully signed in");
     }).catch(function(resp) {
-      console.log(resp);
+      Notification.error('Incorrect password or email')
     });
   };
 
