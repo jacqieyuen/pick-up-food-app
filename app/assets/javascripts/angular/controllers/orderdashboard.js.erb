@@ -1,4 +1,12 @@
-app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService', 'URL_CONSTANTS', function($scope, $http, $auth, UserService, URL_CONSTANTS){
+app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService', 'URL_CONSTANTS', '$location', function($scope, $http, $auth, UserService, URL_CONSTANTS, $location){
+
+  $scope.logout = function () {
+    $auth.signOut().then(function(resp) {
+      $location.path('/');
+    }).catch(function(resp) {
+      Notification.error('Log out unsuccessful')
+    });
+  };
 
   $scope.getTodaysOrders = function() {
     $http.get(URL_CONSTANTS.domain + "/api/orders").then(function(resp){
@@ -131,9 +139,16 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
   $scope.innitOrderDashboard = function () {
     $scope.orderPickupTabs = true
     $scope.results = false
+    $scope.user = UserService.user;
     $scope.getTodaysOrders();
   };
 
-  $scope.innitOrderDashboard();
-
+  $scope.adminCheckFirst = function () {
+    if (!$auth.user.admin){
+      $location.path('/')
+    }else{
+      $scope.innitOrderDashboard();
+    }
+  };
+  $scope.adminCheckFirst();
 }]);

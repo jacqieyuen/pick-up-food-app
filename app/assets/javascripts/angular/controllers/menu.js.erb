@@ -71,6 +71,13 @@ app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localSt
     $scope.getProducts(url);
   };
 
-  $scope.initMenu();
 
+  $scope.adminCheckFirst = function () {
+    if ($auth.user.admin){
+      $location.path('order_dashboard')
+    }else{
+      $scope.initMenu();
+    }
+  };
+  $scope.adminCheckFirst();
 }]);

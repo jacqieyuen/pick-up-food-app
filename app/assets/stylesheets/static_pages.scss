@@ -83,7 +83,9 @@
     #homeBackground {
       width: auto;
       height: 100vh;
-      min-width: 100%;
+      min-width: 100vw;
+
+      // min-height: auto;
       position:relative;
       opacity: 0.9;
       filter: brightness(44%);

@@ -1,4 +1,4 @@
-app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', 'URL_CONSTANTS', function($scope, $http, $location, UserService, $localStorage, URL_CONSTANTS){
+app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '$localStorage', 'URL_CONSTANTS', '$auth', function($scope, $http, $location, UserService, $localStorage, URL_CONSTANTS, $auth){
 
 
 
@@ -146,7 +146,14 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
   };
 
 
+  $scope.adminCheckFirst = function () {
+    if ($auth.user.admin){
+      $location.path('order_dashboard')
+    }else{
+      $scope.initCheckout();
+    }
+  };
+  $scope.adminCheckFirst();
 
-  $scope.initCheckout();
 
 }]);

@@ -1,5 +1,10 @@
-app.controller('StaticPagesCtrl', ['$scope', '$auth', 'UserService', function($scope, $auth, UserService){
+app.controller('StaticPagesCtrl', ['$scope', '$auth', 'UserService', '$location', function($scope, $auth, UserService, $location){
 
   $scope.message = "Hello World!";
-
+  $scope.adminCheckFirst = function () {
+    if ($auth.user.admin){
+      $location.path('order_dashboard')
+    };
+  };
+  $scope.adminCheckFirst();
 }]);

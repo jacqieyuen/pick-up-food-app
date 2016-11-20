@@ -4,7 +4,9 @@ app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$doc
     $auth.submitLogin($scope.loginForm).
     then(function(resp) {
       console.log(resp);
-      Notification.success("You have successfully logged in");
+      if ($auth.user.admin) {
+        $location.path("order_dashboard")
+      }else (Notification.success("You have successfully logged in"));
     }).catch(function(resp) {
       console.log(resp);
       Notification.error('Incorrect password or email')
@@ -85,7 +87,7 @@ app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$doc
       Notification.success("You have successfully logged out");
     }).catch(function(resp) {
       Notification.error('Log out unsuccessful')
-    });r
+    });
   };
 
   $scope.initHeader = function () {
