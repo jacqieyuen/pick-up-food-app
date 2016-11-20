@@ -1,3 +1,4 @@
+
 <div id="checkoutOrderSummary">
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation" class="solidNavBar">
     <div class="container-fluid">
@@ -73,23 +74,19 @@
           <div class="row" id="paypalDiv">
             <form id="checkout" >
               <div id="dropin-container" ></div>
-              <input type="submit" value="Checkout: {{ checkoutTotal() }}">
+              <input type="submit" value="Checkout: {{ checkoutTotal() }}" ng-click="loadingOn()">
             </form>
           </div>
         </div>
       </div>
 
 
-
     </div>
 
   </div>
 
-
-
-
   <div class="container-fluid" id="orderSummaryContainer" ng-show="ordersummary">
-    <div class="row">
+    <div class="row" id="orderSummaryHeader">
       <a href="/#/menu"><button type="button" class="btn btn-info btn-lg pull-right" >Menu</button></a>
       <h1>Order Summary</h1>
     </div>
@@ -132,4 +129,9 @@
         </div>
     </div>
   </div>
+
+  <div id="outterLoader" ng-show="loadingCheckout">
+    <div class="loader"></div>
+  </div>
+
 </div>

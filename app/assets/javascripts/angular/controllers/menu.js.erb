@@ -1,4 +1,4 @@
-app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', 'URL_CONSTANTS', '$anchorScroll', '$location', '$window', '$document',function($scope, $http, $auth, UserService, $localStorage, URL_CONSTANTS, $anchorScroll, $location, $window, $document){
+app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localStorage', 'URL_CONSTANTS', '$anchorScroll', '$location', '$window', '$document', 'Notification',function($scope, $http, $auth, UserService, $localStorage, URL_CONSTANTS, $anchorScroll, $location, $window, $document, Notification){
 
 
   $scope.documentScroll = function () {
@@ -55,6 +55,7 @@ app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localSt
       return obj.id == add_id
     })[0];
     $scope.checkoutList.push($scope.result);
+     Notification.info('Added ' + $scope.result.name + ' to basket');
     $scope.saveCheckoutList();
     console.log("adding this item below to basket")
     console.log($scope.result);

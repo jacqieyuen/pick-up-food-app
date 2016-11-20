@@ -16,7 +16,7 @@ app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$doc
     then(function(resp) {
       Notification.success("You have successfully signed in");
     }).catch(function(resp) {
-      Notification.error('Incorrect password or email')
+      Notification.error('Incorrect password or email');
     });
   };
 
@@ -82,10 +82,10 @@ app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$doc
 
   $scope.logout = function () {
     $auth.signOut().then(function(resp) {
-      console.log(resp);
+      Notification.success("You have successfully logged out");
     }).catch(function(resp) {
-      console.log(resp);
-    });
+      Notification.error('Log out unsuccessful')
+    });r
   };
 
   $scope.initHeader = function () {

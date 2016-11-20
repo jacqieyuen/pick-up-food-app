@@ -51,7 +51,7 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
       $scope.orderId = resp.data.id;
       $scope.getOrderDetails($scope.orderId);
       $localStorage.$reset();
-
+      $scope.loadingCheckout=false;
     }, function errorCallback (resp){
       console.log(resp)
     })
@@ -131,14 +131,21 @@ app.controller('CheckoutCtrl', ['$scope', '$http', '$location', 'UserService', '
     $scope.selectedPickUpTime = new Date($scope.currentDate.setHours($scope.hourOfPickUp, $scope.minuteOfPickUp));
   };
 
+  $scope.loadingOn = function () {
+    $scope.loadingCheckout=true;
+  }
+
   $scope.initCheckout = function () {
-    $scope.message = "Checkout Page"
-    $scope.userData = UserService.user
+    $scope.message = "Checkout Page";
+    $scope.userData = UserService.user;
     $scope.braintreeForm();
     $scope.checkoutList = $localStorage.checkoutList;
-    $scope.ordersummary = false
+    $scope.ordersummary = false;
     $scope.createTimes();
+    $scope.loadingCheckout=false;
   };
+
+
 
   $scope.initCheckout();
 
