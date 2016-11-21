@@ -46,22 +46,22 @@ app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', 'URL_CONSTA
       url:'/checkout',
       templateUrl: "<%= asset_path('customer/checkout.html') %>",
       controller: 'CheckoutCtrl',
-      resolve: {
-          auth: function($auth) {
-            return $auth.validateUser();
-          }
-        }
+      // resolve: {
+      //     auth: function($auth) {
+      //       return $auth.validateUser();
+      //     }
+      //   }
     })
     .state({
       name:'order_dashboard',
       url:'/order_dashboard',
       templateUrl: "<%= asset_path('restaurant/orderdashboard.html') %>",
       controller: 'OrderDashboardCtrl',
-      resolve: {
-          auth: function($auth) {
-            return $auth.validateUser();
-          }
-        }
+      // resolve: {
+      //     auth: function($auth) {
+      //       return $auth.validateUser();
+      //     }
+      //   }
     });
 
 
