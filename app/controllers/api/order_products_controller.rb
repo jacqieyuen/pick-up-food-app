@@ -8,8 +8,8 @@ class API::OrderProductsController < ApplicationController
 
 private
 
-def get_orderproducts
-  @orderproducts = Order.find_by(id: params[:id]).order_products.includes(:product)
+  def get_orderproducts
+    @orderproducts = Order.find_by(id: params[:id]).order_products.includes(:product)
 
-end
+  end
 end

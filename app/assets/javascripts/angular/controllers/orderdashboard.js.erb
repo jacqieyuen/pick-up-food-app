@@ -136,11 +136,19 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
      return time.slice(0,time.indexOf("GMT"));
   };
 
+  $scope.intervalFunction = function(){
+    $timeout(function() {
+      $scope.getTodaysOrders();
+      $scope.intervalFunction();
+    }, 1000)
+    console.log("get data f(x)")
+  };
+
   $scope.innitOrderDashboard = function () {
     $scope.orderPickupTabs = true
     $scope.results = false
     $scope.user = UserService.user;
-    $scope.getTodaysOrders();
+    $scope.intervalFunction();
   };
 
   $scope.adminCheckFirst = function () {

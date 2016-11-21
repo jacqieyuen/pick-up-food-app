@@ -31,7 +31,7 @@
               <ul class="dropdown-menu">
                 <li ng-hide="user.loggedin"><a href="" data-toggle="modal" data-target="#loginModal">Log In</a></li>
                 <li ng-hide="user.loggedin"><a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>
-                <li ng-show="user.loggedin"><a href="" >Profile</a></li>
+                <li ng-show="user.loggedin"><a href="" data-toggle="modal" data-target="#profileModal" ng-click="getUserdetails()">Profile</a></li>
                 <li ng-show="user.loggedin"><a href="" ng-click="logout()" >Log Out</a></li>
               </ul>
             </li>
@@ -64,7 +64,7 @@
               <ul class="dropdown-menu">
                 <li ng-hide="user.loggedin"><a href="" data-toggle="modal" data-target="#loginModal">Log In</a></li>
                 <li ng-hide="user.loggedin"><a href="" data-toggle="modal" data-target="#signupModal">Sign Up</a></li>
-                <li ng-show="user.loggedin"><a href="" >Profile</a></li>
+                <li ng-show="user.loggedin"><a href="" data-toggle="modal" data-target="#profileModal" ng-click="getUserdetails()">Profile</a></li>
                 <li ng-show="user.loggedin"><a href="" ng-click="logout()" >Log Out</a></li>
               </ul>
             </li>
@@ -193,6 +193,36 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-success" ng-click="signup()" data-dismiss="modal">Sign Up</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="profileModal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"> {{ userInfo.email }} </h4>
+          </div>
+          <div class="modal-body" >
+            <h4>Reset Rassword</h4>
+            <p> ******* </p>
+            <hr>
+            <h4>Order History</h4>
+            <a href="" ng-click="show()" ng-if="!showing">Show</a>
+            <a href="" ng-click="showMe()" ng-if="showing">Hide</a>
+            <div ng-if="showme" ng-repeat="order in orderHistory track by $index">
+              <div ng-if="orderHistory.length >= 1">
+                <h4>{{ order.id }} - {{ order.pickup_code }}</h4>
+                <i><p> {{ localTime(order.pick_up_time)}}</p></i>
+                <h5 ng-repeat="product in order.products track by $index">{{product.name}}</h5>
+              </div>
+              <div ng-if="orderHistory.length < 1"> You have no orders yet</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" ng-click="logout()" data-dismiss="modal">Sign out</button>
 
         </div>
       </div>

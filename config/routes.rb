@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   mount_devise_token_auth_for 'User', at: 'auth'
+  mount ActionCable.server => '/cable'
   root 'static_pages#index'
   get '/api/transactions/get_client_token' => "get_client_token"
   get '/api/user' => "api/users#user_profile", defaults: {format: 'json'}
+  get '/api/user_orders' => "api/users#show", defaults: {format: 'json'}
   get '/api/orders/get_all_orders' => "api/orders#get_all_orders", defaults: {format: 'json'}
   get '/api/orders/get_any_order/:id' => "api/orders#get_any_order", defaults: {format: 'json'}
 

@@ -3,8 +3,6 @@ app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localSt
 
   $scope.documentScroll = function () {
     $document.on('scroll', function() {
-      // do your things like logging the Y-axis
-
       if ($window.scrollY > (window.innerHeight)*.15){
         $scope.menuScroll = true
       }else {
@@ -17,12 +15,8 @@ app.controller('MenuCtrl', ['$scope', '$http', '$auth', 'UserService', '$localSt
    $scope.gotoAnchor = function(x) {
       var newHash = 'anchor' + x;
       if ($location.hash() !== newHash) {
-        // set the $location.hash to `newHash` and
-        // $anchorScroll will automatically scroll to it
         $location.hash(x);
       } else {
-        // call $anchorScroll() explicitly,
-        // since $location.hash hasn't changed
         $anchorScroll();
       }
     };

@@ -6,4 +6,5 @@ class User < ActiveRecord::Base
   include DeviseTokenAuth::Concerns::User
 
   has_many :orders
+  validates :email, uniqueness: true, presence: true
 end

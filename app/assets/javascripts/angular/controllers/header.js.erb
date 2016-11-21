@@ -1,4 +1,19 @@
-app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$document', '$location', '$localStorage', 'Notification', function($scope, $auth, UserService, $window, $document, $location, $localStorage, Notification){
+app.controller('HeaderCtrl', ['$scope', '$auth', '$http', 'UserService', '$window', '$document', '$location', '$localStorage', 'Notification', 'URL_CONSTANTS', function($scope, $auth, $http, UserService, $window, $document, $location, $localStorage, Notification, URL_CONSTANTS){
+
+  $scope.getUserdetails = function () {
+    $http.get(URL_CONSTANTS.domain + '/api/user/').then(function successCallback (resp){
+      $scope.userInfo = resp.data
+    }, function errorCallback(resp){
+      console.log(resp)
+    })
+    $http.get(URL_CONSTANTS.domain + '/api/user_orders').then(function successCallback (resp){
+      $scope.orderHistory = resp.data
+      console.log($scope.orderHistory);
+    }, function errorCallback(resp){
+      console.log(resp)
+    })
+
+  };
 
   $scope.login = function () {
     $auth.submitLogin($scope.loginForm).
@@ -18,7 +33,7 @@ app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$doc
     then(function(resp) {
       Notification.success("You have successfully signed in");
     }).catch(function(resp) {
-      Notification.error('Incorrect password or email');
+      Notification.error('Invalid email or password');
     });
   };
 
@@ -90,11 +105,28 @@ app.controller('HeaderCtrl', ['$scope', '$auth', 'UserService', '$window', '$doc
     });
   };
 
+
+  $scope.localTime = function (x) {
+    var time = (new Date(x)).toString()
+     return time.slice(0,time.indexOf("GMT"));
+  };
+
+  $scope.show = function () {
+    $scope.showme = true;
+    $scope.showing = true;
+  };
+  $scope.showMe = function () {
+    $scope.showme = false;
+    $scope.showing = false;
+  };
+
+
   $scope.initHeader = function () {
     $scope.transparentNav = true
-    $scope.user = UserService.user;
     $scope.documentScrollNav();
     $scope.initCheckoutList();
+    $scope.getUserdetails();
+    $scope.showme = false
   };
 
   $scope.initHeader();
