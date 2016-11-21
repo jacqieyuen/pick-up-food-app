@@ -1,4 +1,4 @@
-app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService', 'URL_CONSTANTS', '$location', function($scope, $http, $auth, UserService, URL_CONSTANTS, $location){
+app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService', 'URL_CONSTANTS', '$location', '$timeout', function($scope, $http, $auth, UserService, URL_CONSTANTS, $location, $timeout){
 
   $scope.logout = function () {
     $auth.signOut().then(function(resp) {
@@ -140,7 +140,7 @@ app.controller('OrderDashboardCtrl', ['$scope', '$http', '$auth', 'UserService',
     $timeout(function() {
       $scope.getTodaysOrders();
       $scope.intervalFunction();
-    }, 1000)
+    }, 500)
     console.log("get data f(x)")
   };
 
