@@ -105,6 +105,10 @@ app.controller('HeaderCtrl', ['$scope', '$auth', '$http', 'UserService', '$windo
     });
   };
 
+  $scope.modalRedirect = function (x) {
+    $location.path(x)
+  };
+
 
   $scope.localTime = function (x) {
     var time = (new Date(x)).toString()
