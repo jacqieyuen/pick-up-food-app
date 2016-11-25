@@ -342,6 +342,21 @@
     display: inline-block;
     text-align: center;
   }
+  .navbar-nav {
+     height: 50px;
+     a{
+      padding: 5px 40px;
+    }
+    .glyphicon-user{
+      padding-top: 5px;
+      font-size: 38px;
+    }
+    img{
+      height: 50px;
+      padding: 0;
+      margin: 0;
+    }
+  }
   .perIncomingOrder, .perPreparingOrder, .perFinishedOrder, .perPickedUpOrder {
     border: solid gray 2px;
     margin: 5px 0;
@@ -365,4 +380,3 @@
     overflow-x: hidden;
   }
 }
-
