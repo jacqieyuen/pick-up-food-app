@@ -93,8 +93,9 @@
     #homeWelcome {
       float: center;
       position: absolute;
-      left: 30%;
-      top: 25%;
+      margin-left: -270px;
+      left: 50vw;
+      top: 25vh;
       z-index: 1000;
     }
     #homeCallToAction {
@@ -104,8 +105,9 @@
       width: 210px;
       float: center;
       position: absolute;
-      left: 42%;
-      top: 84%;
+      margin-left: -103px;
+      left: 50vw;
+      top: 85vh;
       background-color: rgba(0,0,0,0.2)
     }
   }
@@ -116,9 +118,8 @@
     padding: 0;
     height: 100vh;
     #menuBannerImg {
-      margin-top: -120px;
       width: 110%;
-      height: auto;
+      height: 100vh;
       position:relative;
       opacity: 0.9;
       filter: brightness(54%);
@@ -126,8 +127,9 @@
     #menuQuote {
       float: center;
       position: absolute;
-      left: 15%;
-      top: 31%;
+      margin-left: -483.8px;
+      left: 50vw;
+      top: 33vh;
       z-index: 1000;
       // background-color: rgba(0,0,0,0.2);
       img {
