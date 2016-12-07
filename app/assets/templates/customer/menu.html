@@ -34,10 +34,10 @@
     <div class="row categorySeperator" ng-repeat="category in categories">
       <h1 class="innerCategorySeperator" id="{{ category.name }}">{{ category.name }}</h1>
 
-      <div class="col-sm-6 col-md-3" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
+      <div class="col-sm-6 col-md-4 col-lg-3" ng-repeat="product in products track by $index" ng-if="category.id == product.category_id">
         <div class=" thumbnailOutter">
           <div class="thumbnail">
-            <div class="thumbnailImg">
+            <div class="thumbnailImg img-responsive">
               <img ng-src="{{product.img_path}}">
             </div>
             <div class="caption">
