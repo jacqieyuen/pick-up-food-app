@@ -48,6 +48,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', 'URL_CONSTA
       controller: 'CheckoutCtrl',
       resolve: {
         auth: function($auth) {
+          console.log("RESOLVE");
+          console.log($auth.user);
           return $auth.validateUser();
         }
       }
