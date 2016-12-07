@@ -42,22 +42,15 @@ app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', 'URL_CONSTA
       controller: 'MenuCtrl'
     })
     .state({
-      abstract: true,
-      name: 'final',
-      url: '/final',
-      template: '<ui-view/>',
+      name:'checkout',
+      url:'/checkout',
+      templateUrl: "<%= asset_path('customer/checkout.html') %>",
+      controller: 'CheckoutCtrl',
       resolve: {
         auth: function($auth) {
-          console.log($auth.user);
           return $auth.validateUser();
         }
       }
-    })
-    .state({
-      name:'final.checkout',
-      url:'/checkout',
-      templateUrl: "<%= asset_path('customer/checkout.html') %>",
-      controller: 'CheckoutCtrl'
     })
     .state({
       name:'order_dashboard',
