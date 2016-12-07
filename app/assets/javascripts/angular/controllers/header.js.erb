@@ -1,5 +1,7 @@
 app.controller('HeaderCtrl', ['$scope', '$auth', '$http', 'UserService', '$window', '$document', '$location', '$localStorage', 'Notification', 'URL_CONSTANTS', function($scope, $auth, $http, UserService, $window, $document, $location, $localStorage, Notification, URL_CONSTANTS){
 
+  window.$auth = $auth;
+
   $scope.getUserdetails = function () {
     $http.get(URL_CONSTANTS.domain + '/api/user/').then(function successCallback (resp){
       $scope.userInfo = resp.data
