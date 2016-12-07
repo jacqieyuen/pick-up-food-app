@@ -46,11 +46,6 @@ app.config(['$stateProvider', '$urlRouterProvider', '$authProvider', 'URL_CONSTA
       url:'/checkout',
       templateUrl: "<%= asset_path('customer/checkout.html') %>",
       controller: 'CheckoutCtrl',
-      resolve: {
-          auth: function($auth) {
-            return $auth.validateUser();
-          }
-        }
     })
     .state({
       name:'order_dashboard',
