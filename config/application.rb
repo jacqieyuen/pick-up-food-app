@@ -21,13 +21,13 @@ module PickUpFood
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.middleware.insert_before 0, "Rack::Cors" do
+    config.middleware.use Rack::Cors do
       allow do
-        origins '*' # Control the domains
-        resource '*', :headers => :any,
-        :methods => [:get, :post, :options, :put, :patch, :delete],
+        origins '*'
+        resource '*',
+        :headers => :any,
         :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-        :max_age => 0 # Control the resources
+        :methods => [:get, :post, :options, :delete, :put]
       end
     end
   end
