@@ -4,20 +4,6 @@
     <div class="container-fluid">
       <a href="/" class="navbar-brand" ><span>s i m p l y l i f e</span></a>
       <a href="/#/menu" class="navbar-brand">M E N U</a>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
-            <span class="glyphicon glyphicon-user" aria-hidden="true" ></span>
-              <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li ng-hide="user.loggedin"><a href="/#/login" >Log In</a></li>
-            <li ng-hide="user.loggedin"><a href="/#/signup">Sign Up</a></li>
-            <li ng-show="user.loggedin"><a href="" >Profile</a></li>
-            <li ng-show="user.loggedin"><a href="" ng-click="logout()" >Log Out</a></li>
-          </ul>
-        </li>
-      </ul>
     </div>
   </nav>
 
